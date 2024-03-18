@@ -28,6 +28,7 @@ app.use(express.json())
 app.use(session({
     secret: config.SECRET,
     saveUninitialized: false,
+    resave: true
 }))
 app.use(express.static('dist'))
 app.use(middleware.requestLogger)

@@ -25,11 +25,12 @@ exports.login = async (request, response) => {
 
   response
     .status(200)
-    .send({ token, username: user.username, name: user.name })
+    .send({ token, username: user.username })
 }
 
 exports.logout = async (request, response) => {
-
+    response
+        .status(404);
 }
 
 exports.getAllUsers = async (request, response) => {
@@ -38,7 +39,11 @@ exports.getAllUsers = async (request, response) => {
 }
 
 exports.createUser = async (request, response) => {
-    const { username, name, password } = request.body;
+    const { username, password } = request.body;
+
+    if (!username || !password) {
+        response.status(400).send({error: 'username and password are required'});
+    }
 
     if (username.length < 3 || password.length < 3) {
         return response.status(400).send({error: 'username and password must be at least 3 characters'});
@@ -49,7 +54,6 @@ exports.createUser = async (request, response) => {
 
     const user = new User({
         username,
-        name,
         passwordHash
     });
 
