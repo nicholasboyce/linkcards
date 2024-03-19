@@ -11,9 +11,9 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 
-mongoose.set('strictQuery', false)
+mongoose.set('strictQuery', false);
 
-logger.info('connecting to', config.MONGODB_URI)
+logger.info('connecting to', config.MONGODB_URI);
 
 mongoose.connect(config.MONGODB_URI)
   .then(() => {
@@ -21,22 +21,20 @@ mongoose.connect(config.MONGODB_URI)
   })
   .catch((error) => {
     logger.error('error connecting to MongoDB:', error.message)
-  })
-
-app.use(cors())
-app.use(express.json())
+  });
+app.use(express.json());
 app.use(session({
     secret: config.SECRET,
     saveUninitialized: false,
     resave: true
-}))
-app.use(express.static('dist'))
-app.use(middleware.requestLogger)
-app.use(middleware.tokenExtractor)
+}));
+app.use(express.static('dist'));
+app.use(middleware.requestLogger);
+app.use(middleware.tokenExtractor);
 
-app.use('/api/login', loginRouter)
-app.use('/api/logout', logoutRouter)
-app.use('/api/users', userRouter)
+app.use('/api/login', loginRouter);
+app.use('/api/logout', logoutRouter);
+app.use('/api/users', userRouter);
 
 
 app.use(middleware.unknownEndpoint)

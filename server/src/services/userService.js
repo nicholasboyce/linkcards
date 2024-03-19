@@ -24,7 +24,7 @@ exports.login = async ({ username, password }) => {
     return { username: userInfo, token };
 }
 
-exports.createUser = async ({ username, password }) => {
+exports.createUser = async ({ username, password, data }) => {
     if (!username || !password) {
         return { savedUser: null, error: 'username and password are required' };
     }
@@ -36,9 +36,12 @@ exports.createUser = async ({ username, password }) => {
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
+    const inputData = data ? data : {};
+
     const user = new User({
         username,
-        passwordHash
+        passwordHash,
+        data: inputData
     });
 
     const savedUser = await user.save();

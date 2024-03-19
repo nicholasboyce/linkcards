@@ -125,6 +125,57 @@ describe('when there are users initially saved', () => {
             .expect('Content-Type', /application\/json/);
     });
 
+    test('new user creation succeeds with userInfo provided', async () => {
+        const data = {
+            info: {
+              name: 'Jessica Randall',
+              location: 'London, United Kingdom',
+              bio: '"Front-end developer and avid reader."'
+            },
+            links: [
+              {
+                name: 'Github',
+                url: 'nicholasboyce.dev'
+              },
+              {
+                name: 'Frontend Mentor',
+                url: 'nicholasboyce.dev'
+              },
+              {
+                name: 'Linkedin',
+                url: 'nicholasboyce.dev'
+              },
+              {
+                name: 'Twitter',
+                url: 'nicholasboyce.dev'
+              },
+              {
+                name: 'Instagram',
+                url: 'nicholasboyce.dev'
+              }
+            ]
+        }
+
+        const credentials = {
+            username: 'jessica1',
+            password: 'abc123',
+            data
+        }
+        
+        await api
+            .post('/api/users')
+            .send(credentials)
+            .expect(201)
+            .expect('Content-Type', /application\/json/);
+
+        const response = await api
+            .get('/api/users/jessica1')
+            .expect(200)
+            .expect('Content-Type', /application\/json/);
+
+        assert.deepStrictEqual(response.body.data, data);
+    });
+
     test('new user creation fails when username is not unique', async () => {
         const badCredentials = {
             username: 'sarah1',

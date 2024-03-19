@@ -1,7 +1,29 @@
+import { useEffect } from 'react';
 import imgUrl from './assets/avatar-jessica.jpeg';
 import Card from './components/Card';
 
 function App() {
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/users', {
+          signal: abortController.signal
+        });
+        const userData = await response.json();
+
+        console.log(userData);
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
+    fetchUserData();
+    return () => abortController.abort();
+  }, []);
+  
   const data = {
     info: {
       picture: {

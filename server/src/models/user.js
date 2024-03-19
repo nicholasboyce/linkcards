@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const userInfoSchema = require('./userInfo');
 
 const userSchema = mongoose.Schema({
     username: {    
@@ -7,10 +8,7 @@ const userSchema = mongoose.Schema({
         unique: true // this ensures the uniqueness of username  
     },
     passwordHash: String,
-    data: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserInfo'
-    }
+    data: userInfoSchema
 });
 
 userSchema.set('toJSON', {
