@@ -3,18 +3,13 @@ const User = require('../models/user')
 const userService = require('../services/userService');
 
 exports.login = async (request, response) => {
+  const { username, token, error } = await userService.login(request.body);
 
-  const { user, token } = await userService.login(request.body);
-
-  if (!user) {
-    return response.status(401).json({
-        error: 'invalid username or password'
-    });
+  if (error) {
+    return response.status(401).json({error});
   }
 
-  response
-    .status(200)
-    .send({ token, username: user.username })
+  response.status(200).send({ token, username });
 }
 
 exports.logout = async (request, response) => {
@@ -23,30 +18,16 @@ exports.logout = async (request, response) => {
 }
 
 exports.getAllUsers = async (request, response) => {
-    let users = await User.find({}).populate('blogs', { url:1, title:1, author:1 });
+    const users = await userService.getAllUsers();
     response.json(users);
 }
 
 exports.createUser = async (request, response) => {
-    const { username, password } = request.body;
+    const { savedUser, error } = await userService.createUser(request.body);
 
-    if (!username || !password) {
-        response.status(400).send({error: 'username and password are required'});
+    if (error) {
+        return response.status(400).json({error});
     }
-
-    if (username.length < 3 || password.length < 3) {
-        return response.status(400).send({error: 'username and password must be at least 3 characters'});
-    }
-
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-
-    const user = new User({
-        username,
-        passwordHash
-    });
-
-    const savedUser = await user.save();
 
     response.status(201).json(savedUser);
 }

@@ -2,10 +2,10 @@ const { test, after, describe, beforeEach } = require('node:test');
 const assert = require('node:assert');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const bcrypt = require('bcrypt');
 const app = require('../app');
 const api = supertest(app);
 const User = require('../src/models/user');
+const userService = require('../src/services/userService');
 
 
 describe('when there are no users initially saved', () => {
@@ -69,14 +69,10 @@ describe('when there are no users initially saved', () => {
 describe('when there are users initially saved', () => {
     beforeEach(async () => {
         await User.deleteMany({});
-
-        const passwordHash = await bcrypt.hash('abc123', 10);
-        const rootUser = new User({
+        await userService.createUser({
             username: 'sarah1',
-            passwordHash
+            password: 'abc123'
         });
-
-        await rootUser.save();
     });
 
     test('login succeeds with valid credentials', async () => {
@@ -115,8 +111,34 @@ describe('when there are users initially saved', () => {
             .expect(401)
             .expect('Content-Type', /application\/json/);
     });
+
+    test('new user creation succeeds when username is unique', async () => {
+        const credentials = {
+            username: 'sarah2',
+            password: 'abc123'
+        }
+
+        await api
+            .post('/api/users')
+            .send(credentials)
+            .expect(201)
+            .expect('Content-Type', /application\/json/);
+    });
+
+    test('new user creation fails when username is not unique', async () => {
+        const badCredentials = {
+            username: 'sarah1',
+            password: 'abc123'
+        }
+
+        await api
+            .post('/api/users')
+            .send(badCredentials)
+            .expect(400)
+            .expect('Content-Type', /application\/json/);
+    });
 });
 
 after(async () => {
-    await mongoose.connection.close()
+    await mongoose.connection.close();
 });
