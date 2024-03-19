@@ -6,7 +6,11 @@ const userSchema = mongoose.Schema({
         required: true,    
         unique: true // this ensures the uniqueness of username  
     },
-    passwordHash: String
+    passwordHash: String,
+    data: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserInfo'
+    }
 });
 
 userSchema.set('toJSON', {

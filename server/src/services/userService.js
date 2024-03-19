@@ -46,7 +46,10 @@ exports.createUser = async ({ username, password }) => {
     return { savedUser }
 }
 
-
 exports.getAllUsers = async () => {
-    return await User.find({}).populate('blogs', { url:1, title:1, author:1 });
+    return await User.find({}).populate('data');
+}
+
+exports.getUser = async (username) => {
+    return await User.findOne({username}).populate('data');
 }

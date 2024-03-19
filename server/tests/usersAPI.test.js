@@ -137,6 +137,14 @@ describe('when there are users initially saved', () => {
             .expect(400)
             .expect('Content-Type', /application\/json/);
     });
+
+    test('user data is returned when user-specific page is requested', async () => {
+        const response = await api
+            .get('/api/users/sarah1')
+            .expect(200);
+
+        assert.strictEqual(response.body.username, 'sarah1');
+    });
 });
 
 after(async () => {

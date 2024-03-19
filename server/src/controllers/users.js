@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt')
-const User = require('../models/user')
 const userService = require('../services/userService');
 
 exports.login = async (request, response) => {
@@ -20,6 +18,11 @@ exports.logout = async (request, response) => {
 exports.getAllUsers = async (request, response) => {
     const users = await userService.getAllUsers();
     response.json(users);
+}
+
+exports.getUser = async (request, response) => {
+    const user = await userService.getUser(request.params.user);
+    response.json(user);
 }
 
 exports.createUser = async (request, response) => {

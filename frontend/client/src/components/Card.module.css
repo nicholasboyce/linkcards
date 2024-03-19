@@ -1,0 +1,12 @@
+.card {
+    width: min(100vw, 386px);
+    margin-inline: auto;
+    background-color: var(--clr-neutral-990);
+    border-radius: 0.5rem;
+    padding: 2.5rem;
+    color: var(--clr-neutral-100);
+
+    display: grid;
+    row-gap: 1.5rem;
+    font-size: var(--fs-400);
+}
