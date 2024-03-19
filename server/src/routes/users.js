@@ -2,7 +2,7 @@ const usersRouter = require('express').Router();
 const usersController = require('../controllers/users');
 const cors = require('cors');
 
-const corsOptions ={
+const corsOptions = {
     origin: 'http://localhost:5173'
 };
 

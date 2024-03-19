@@ -50,9 +50,9 @@ exports.createUser = async ({ username, password, data }) => {
 }
 
 exports.getAllUsers = async () => {
-    return await User.find({}).populate('data');
+    return await User.find({});
 }
 
 exports.getUser = async (username) => {
-    return await User.findOne({username}).populate('data');
+    return await User.findOne({username});
 }
