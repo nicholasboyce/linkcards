@@ -1,0 +1,1 @@
+LinkCards is a service that allows users to display their most important social media presences in one place! Easily editable and shareable, this service is convenient for developers and non-developers alike.

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const pictureSchema = mongoose.Schema({
-    url: String,
+    url: String, //need to update so that it can accept and return image data
     alt: String
 });
 
