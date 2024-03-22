@@ -112,81 +112,83 @@ describe('when there are users initially saved', () => {
             .expect('Content-Type', /application\/json/);
     });
 
-    test('new user creation succeeds when username is unique', async () => {
-        const credentials = {
-            username: 'sarah2',
-            password: 'abc123'
-        }
-
-        await api
-            .post('/api/users')
-            .send(credentials)
-            .expect(201)
-            .expect('Content-Type', /application\/json/);
-    });
-
-    test('new user creation succeeds with userInfo provided', async () => {
-        const data = {
-            info: {
-              name: 'Jessica Randall',
-              location: 'London, United Kingdom',
-              bio: '"Front-end developer and avid reader."'
-            },
-            links: [
-              {
-                name: 'Github',
-                url: 'nicholasboyce.dev'
-              },
-              {
-                name: 'Frontend Mentor',
-                url: 'nicholasboyce.dev'
-              },
-              {
-                name: 'Linkedin',
-                url: 'nicholasboyce.dev'
-              },
-              {
-                name: 'Twitter',
-                url: 'nicholasboyce.dev'
-              },
-              {
-                name: 'Instagram',
-                url: 'nicholasboyce.dev'
-              }
-            ]
-        }
-
-        const credentials = {
-            username: 'jessica1',
-            password: 'abc123',
-            data
-        }
-        
-        await api
-            .post('/api/users')
-            .send(credentials)
-            .expect(201)
-            .expect('Content-Type', /application\/json/);
-
-        const response = await api
-            .get('/api/users/jessica1')
-            .expect(200)
-            .expect('Content-Type', /application\/json/);
-
-        assert.deepStrictEqual(response.body.data, data);
-    });
-
-    test('new user creation fails when username is not unique', async () => {
-        const badCredentials = {
-            username: 'sarah1',
-            password: 'abc123'
-        }
-
-        await api
-            .post('/api/users')
-            .send(badCredentials)
-            .expect(400)
-            .expect('Content-Type', /application\/json/);
+    describe('new user creation', () => {
+        test('succeeds when username is unique', async () => {
+            const credentials = {
+                username: 'sarah2',
+                password: 'abc123'
+            }
+    
+            await api
+                .post('/api/users')
+                .send(credentials)
+                .expect(201)
+                .expect('Content-Type', /application\/json/);
+        });
+    
+        test('succeeds with userInfo provided', async () => {
+            const data = {
+                info: {
+                  name: 'Jessica Randall',
+                  location: 'London, United Kingdom',
+                  bio: '"Front-end developer and avid reader."'
+                },
+                links: [
+                  {
+                    name: 'Github',
+                    url: 'nicholasboyce.dev'
+                  },
+                  {
+                    name: 'Frontend Mentor',
+                    url: 'nicholasboyce.dev'
+                  },
+                  {
+                    name: 'Linkedin',
+                    url: 'nicholasboyce.dev'
+                  },
+                  {
+                    name: 'Twitter',
+                    url: 'nicholasboyce.dev'
+                  },
+                  {
+                    name: 'Instagram',
+                    url: 'nicholasboyce.dev'
+                  }
+                ]
+            }
+    
+            const credentials = {
+                username: 'jessica1',
+                password: 'abc123',
+                data
+            }
+            
+            await api
+                .post('/api/users')
+                .send(credentials)
+                .expect(201)
+                .expect('Content-Type', /application\/json/);
+    
+            const response = await api
+                .get('/api/users/jessica1')
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+    
+            assert.deepStrictEqual(response.body.data, data);
+        });
+    
+        test('fails when username is not unique', async () => {
+            const badCredentials = {
+                username: 'sarah1',
+                password: 'abc123'
+            }
+    
+            await api
+                .post('/api/users')
+                .send(badCredentials)
+                .expect(400)
+                .expect('Content-Type', /application\/json/);
+        });
     });
 
     test('user data is returned when user-specific page is requested', async () => {
@@ -195,6 +197,33 @@ describe('when there are users initially saved', () => {
             .expect(200);
 
         assert.strictEqual(response.body.username, 'sarah1');
+    });
+
+    describe('updating an existing user\'s information', () => {
+        test('returns updated user upon success', async () => {
+            const newUserData = {
+                data: {
+                    info: {
+                        bio: 'I\'m a really good swimmer'
+                    }
+                }
+            }
+
+            const getResponse = await api
+                .get('/api/users/sarah1')
+                .expect(200);
+
+
+            const patchResponse = await api
+                .patch('/api/users/sarah1')
+                .send(newUserData)
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+
+            assert.deepStrictEqual(getResponse.body.data, newUserData);
+        });
+        test('fails if user is non-existent', async () => {});
+        test('doesn\'t change target if update info is not valid', async () => {});
     });
 });
 
