@@ -56,3 +56,14 @@ exports.getAllUsers = async () => {
 exports.getUser = async (username) => {
     return await User.findOne({username});
 }
+
+exports.updateUser = async (agent, target, updatedInfo) => {
+    console.log(agent.username);
+    console.log(target);
+    if (agent.username.toString() === target.toString()) {
+        const updatedUser = await User.findByIdAndUpdate(agent.id, updatedInfo, { new: true });
+        return { updatedUser }
+    } else {
+        return { updatedUser: null, error: 'Permission not granted' }
+    }
+}

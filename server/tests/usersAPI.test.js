@@ -200,12 +200,32 @@ describe('when there are users initially saved', () => {
     });
 
     describe('updating an existing user\'s information', () => {
+
         test('returns updated user upon success', async () => {
+            const credentials = {
+                username: 'sarah1',
+                password: 'abc123'
+            }
+    
+            const loggedInUser = await api
+                .post('/api/login')
+                .send(credentials)
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+    
+            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
+
             const newUserData = {
                 data: {
                     info: {
                         bio: 'I\'m a really good swimmer'
-                    }
+                    },
+                    links: [
+                        {
+                            name: 'Github',
+                            url: 'github.com/sarahsarahbarah'
+                        }
+                    ]
                 }
             }
 
@@ -213,14 +233,16 @@ describe('when there are users initially saved', () => {
                 .get('/api/users/sarah1')
                 .expect(200);
 
-
             const patchResponse = await api
                 .patch('/api/users/sarah1')
                 .send(newUserData)
+                .set(token)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
 
-            assert.deepStrictEqual(getResponse.body.data, newUserData);
+            console.log(patchResponse.body);
+
+            assert.deepStrictEqual(patchResponse.body.data, newUserData.data);
         });
         test('fails if user is non-existent', async () => {});
         test('doesn\'t change target if update info is not valid', async () => {});

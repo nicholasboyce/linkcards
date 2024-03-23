@@ -34,3 +34,13 @@ exports.createUser = async (request, response) => {
 
     response.status(201).json(savedUser);
 }
+
+exports.updateUser = async (request, response) => {
+    const { updatedUser, error } = await userService.updateUser(request.user, request.params.user, request.body);
+
+    if (error) {
+        return response.status(401).json({error});
+    }
+
+    response.json(updatedUser);
+}
