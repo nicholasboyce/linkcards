@@ -229,7 +229,7 @@ describe('when there are users initially saved', () => {
                 }
             }
 
-            const getResponse = await api
+            await api
                 .get('/api/users/sarah1')
                 .expect(200);
 
@@ -240,12 +240,131 @@ describe('when there are users initially saved', () => {
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
 
-            console.log(patchResponse.body);
-
             assert.deepStrictEqual(patchResponse.body.data, newUserData.data);
         });
-        test('fails if user is non-existent', async () => {});
-        test('doesn\'t change target if update info is not valid', async () => {});
+
+        test('fails if user is non-existent', async () => {
+            const credentials = {
+                username: 'sarah1',
+                password: 'abc123'
+            }
+    
+            const loggedInUser = await api
+                .post('/api/login')
+                .send(credentials)
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+    
+            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
+
+            const newUserData = {
+                data: {
+                    info: {
+                        bio: 'I\'m a really good swimmer'
+                    },
+                    links: [
+                        {
+                            name: 'Github',
+                            url: 'github.com/sarahsarahbarah'
+                        }
+                    ]
+                }
+            }
+
+            await api
+                .patch('/api/users/sarah2')
+                .send(newUserData)
+                .set(token)
+                .expect(401)
+                .expect('Content-Type', /application\/json/);
+
+        });
+
+        test('fails if agent is not authorized to change target info', async () => {
+            const realCredentials = {
+                username: 'sarah2',
+                password: 'abc123'
+            }
+    
+            await api
+                .post('/api/users')
+                .send(realCredentials)
+                .expect(201)
+                .expect('Content-Type', /application\/json/);
+
+            const credentials = {
+                username: 'sarah1',
+                password: 'abc123'
+            }
+    
+            const loggedInUser = await api
+                .post('/api/login')
+                .send(credentials)
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+    
+            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
+
+            const newUserData = {
+                data: {
+                    info: {
+                        bio: 'I\'m a really good swimmer'
+                    },
+                    links: [
+                        {
+                            name: 'Github',
+                            url: 'github.com/sarahsarahbarah'
+                        }
+                    ]
+                }
+            }
+
+            await api
+                .patch('/api/users/sarah2')
+                .send(newUserData)
+                .set(token)
+                .expect(401)
+                .expect('Content-Type', /application\/json/);
+
+        });
+
+        test('doesn\'t change target if update info is not valid', async () => {
+            const credentials = {
+                username: 'sarah1',
+                password: 'abc123'
+            }
+    
+            const loggedInUser = await api
+                .post('/api/login')
+                .send(credentials)
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+    
+            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
+
+            const newUserData = {
+                data: 3
+            }
+
+            const firstGet = await api
+                .get('/api/users/sarah1')
+                .expect(200)
+                .expect('Content-Type', /application\/json/); 
+
+            await api
+                .patch('/api/users/sarah2')
+                .send(newUserData)
+                .set(token)
+                .expect(401)
+                .expect('Content-Type', /application\/json/);
+
+            const secondGet = await api
+                .get('/api/users/sarah1')
+                .expect(200)
+                .expect('Content-Type', /application\/json/);
+
+            assert.deepStrictEqual(firstGet.body, secondGet.body);
+        });
     });
 });
 
