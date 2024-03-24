@@ -352,10 +352,10 @@ describe('when there are users initially saved', () => {
                 .expect('Content-Type', /application\/json/); 
 
             await api
-                .patch('/api/users/sarah2')
+                .patch('/api/users/sarah1')
                 .send(newUserData)
                 .set(token)
-                .expect(401)
+                .expect(400)
                 .expect('Content-Type', /application\/json/);
 
             const secondGet = await api
