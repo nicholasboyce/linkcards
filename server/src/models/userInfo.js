@@ -1,19 +1,6 @@
 const mongoose = require('mongoose');
 
-const pictureSchema = mongoose.Schema({
-    url: String, //need to update so that it can accept and return image data
-    alt: String
-});
-
-pictureSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        delete returnedObject._id
-        delete returnedObject.__v
-    }
-});
-
 const infoSchema = mongoose.Schema({
-    picture: pictureSchema,
     name: String,
     location: String,
     bio: String

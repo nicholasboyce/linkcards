@@ -23,13 +23,14 @@ function App() {
     fetchUserData();
     return () => abortController.abort();
   }, []);
+
+  const picture = {
+    url: imgUrl,
+    alt: 'A profile picture'
+  }
   
   const data = {
     info: {
-      picture: {
-        url: imgUrl,
-        alt: 'A profile picture'
-      },
       name: 'Jessica Randall',
       location: 'London, United Kingdom',
       bio: '"Front-end developer and avid reader."'
@@ -66,7 +67,7 @@ function App() {
   console.log(data);
 
   return (
-    <Card data={data}/>
+    <Card data={data} picture={picture}/>
   )
 }
 

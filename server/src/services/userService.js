@@ -57,6 +57,8 @@ exports.getUser = async (username) => {
     return await User.findOne({username});
 }
 
+
+//TODO: Update function so that only the data prop can be updated
 exports.updateUser = async (agent, target, updatedInfo) => {
     if (agent.username.toString() === target.toString()) {
         const updatedUser = await User.findByIdAndUpdate(agent.id, updatedInfo, { new: true });
