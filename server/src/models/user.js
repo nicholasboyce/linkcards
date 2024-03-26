@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const userInfoSchema = require('./userInfo');
 
+const tokenSchema = mongoose.Schema({
+    accessToken: {
+        type: String,
+        required: true
+    },
+    refreshToken: {
+        type: String,
+        required: true
+    }
+});
+
 const pictureSchema = mongoose.Schema({
     url: String, //need to update so that it can accept and return image data
     alt: String
@@ -21,7 +32,8 @@ const userSchema = mongoose.Schema({
     },
     passwordHash: String,
     picture: pictureSchema,
-    data: userInfoSchema
+    data: userInfoSchema,
+    tokens: tokenSchema
 });
 
 userSchema.set('toJSON', {
@@ -30,6 +42,7 @@ userSchema.set('toJSON', {
         delete returnedObject._id
         delete returnedObject.__v
         delete returnedObject.passwordHash
+        delete returnedObject.tokens
     }
 });
 
