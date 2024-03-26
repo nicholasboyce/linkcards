@@ -36,7 +36,7 @@ exports.createUser = async (request, response) => {
 }
 
 exports.updateUser = async (request, response) => {
-    const { updatedUser, error } = await userService.updateUser(request.user, request.params.user, request.body);
+    const { updatedUser, error } = await userService.updateUser(request.user, request.params.user, request.body.data);
 
     if (error) {
         return response.status(401).json({error});
