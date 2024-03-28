@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import imgUrl from './assets/avatar-jessica.jpeg';
 import Card from './components/Card';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -67,7 +68,9 @@ function App() {
   console.log(data);
 
   return (
-    <Card data={data} picture={picture}/>
+    <Routes>
+      <Card data={data} picture={picture}/>
+    </Routes>
   )
 }
 
