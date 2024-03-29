@@ -1,45 +1,46 @@
 import PropTypes from 'prop-types';
 import imgUrl from './assets/avatar-jessica.jpeg';
 import Card from './components/Card';
-import { useParams } from 'react-router-dom';
+import { useParams, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
 const User = (props) => {
 
-    const [data, setData] = useState({
+    const [data, setData] = useState(
+    {
         info: {
-                  name: 'Jessica Randall',
-                  location: 'London, United Kingdom',
-                  bio: '"Front-end developer and avid reader."'
-                },
-                links: [
-                  {
-                    id: 0,
-                    name: 'Github',
-                    url: '#'
-                  },
-                  {
-                    id: 1,
-                    name: 'Frontend Mentor',
-                    url: '#'
-                  },
-                  {
-                    id: 2,
-                    name: 'Linkedin',
-                    url: '#'
-                  },
-                  {
-                    id: 3,
-                    name: 'Twitter',
-                    url: '#'
-                  },
-                  {
-                    id: 4,
-                    name: 'Instagram',
-                    url: '#'
-                  }
-                ]
+            name: 'Jessica Randall',
+            location: 'London, United Kingdom',
+            bio: '"Front-end developer and avid reader."'
+        },
+        links: [
+            {
+                id: 0,
+                name: 'Github',
+                url: '#'
+            },
+            {
+                id: 1,
+                name: 'Frontend Mentor',
+                url: '#'
+            },
+            {
+                id: 2,
+                name: 'Linkedin',
+                url: '#'
+            },
+            {
+                id: 3,
+                name: 'Twitter',
+                url: '#'
+            },
+            {
+                id: 4,
+                name: 'Instagram',
+                url: '#'
+            }
+        ]
     });
     // const [picture, setPicture] = useState({});
     const { user } = useParams();
@@ -48,41 +49,6 @@ const User = (props) => {
         url: imgUrl,
         alt: 'A profile picture'
     }
-      
-    // const data = {
-    //     info: {
-    //       name: 'Jessica Randall',
-    //       location: 'London, United Kingdom',
-    //       bio: '"Front-end developer and avid reader."'
-    //     },
-    //     links: [
-    //       {
-    //         id: 0,
-    //         name: 'Github',
-    //         url: '#'
-    //       },
-    //       {
-    //         id: 1,
-    //         name: 'Frontend Mentor',
-    //         url: '#'
-    //       },
-    //       {
-    //         id: 2,
-    //         name: 'Linkedin',
-    //         url: '#'
-    //       },
-    //       {
-    //         id: 3,
-    //         name: 'Twitter',
-    //         url: '#'
-    //       },
-    //       {
-    //         id: 4,
-    //         name: 'Instagram',
-    //         url: '#'
-    //       }
-    //     ]
-    // }
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -108,7 +74,10 @@ const User = (props) => {
     console.log(user);
 
     return (
-        <Card data={data} picture={picture}/>
+        <>
+            <Card data={data} picture={picture}/>
+            <Outlet />
+        </>
     )
 }
 

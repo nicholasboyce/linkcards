@@ -7,10 +7,12 @@ const Card = (props) => {
     const { data, picture } = props;
 
     return (
-        <article aria-label="Profile card" className={styles.card}>
-            <ProfileInfo info={data.info} picture={picture} />
-            <Links data={data.links} />
-        </article>
+        <main className={styles.main}>
+            <article aria-label="Profile card" className={styles.card}>
+                <ProfileInfo info={data.info} picture={picture} />
+                <Links data={data.links} />
+            </article>
+        </main>
     )
 }
 

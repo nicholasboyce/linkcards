@@ -15,6 +15,9 @@
   --fs-750: 2rem;
   --fs-800: 2.25rem;
 
+  --fs-1000: 3rem;
+  --fs-title: 5.25rem;
+
   --fw-light: 300;
   --fw-regular: 400;
   --fw-semi-bold: 600;
@@ -70,9 +73,7 @@ html {
 
 body {
   min-height: 100svh;
-  background-color: var(--clr-neutral-1100);
-  display: grid;
-  place-items: center;
+  overflow: scroll;
 }
 
 img,
