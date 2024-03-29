@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import imgUrl from './assets/avatar-jessica.jpeg';
-import Card from './components/Card';
+import imgUrl from '../assets/avatar-jessica.jpeg';
+import Card from '../components/Card';
 import { useParams, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 

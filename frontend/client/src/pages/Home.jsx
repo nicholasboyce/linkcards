@@ -1,5 +1,5 @@
 import styles from './Home.module.css';
-import imgUrl from './assets/product-screenshot.png';
+import imgUrl from '../assets/product-screenshot.png';
 
 const Home = () => {
     return (

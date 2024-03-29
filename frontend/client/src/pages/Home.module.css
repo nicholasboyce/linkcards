@@ -51,6 +51,10 @@
     width: 6rem;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 .heroHeader {
     display: flex;
     flex-direction: column;
@@ -75,6 +79,7 @@
     /* margin-block-start: 4rem; */
     grid-row: 2;
     grid-column: 2;
+    box-shadow: var(--clr-neutral-990) 3px 3px 10px;
 }
 
 @media (max-width: 1010px) {

@@ -1,0 +1,26 @@
+.form {
+    position: absolute;
+    z-index: 1;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    width: min(30rem, 90vw);
+    height: 40rem;
+    margin: auto;
+    background-color: aliceblue;
+    padding: 3rem;
+}
+
+.formItem {
+    display: grid;
+    grid-template-columns: [label-start] 7rem [label-end input-start] 1fr [input-end];
+}
+
+.formItem label {
+    grid-column: label;
+    text-align: left;
+}
+
+.formItem input {
+    grid-column: input;
+}
