@@ -3,8 +3,8 @@ import styles from './CardLink.module.css';
 
 const Link = ({ link }) => {
     return (
-        <li className={styles.link}>
-            <a href={link.url}>{link.name}</a>
+        <li className={styles.linkItem}>
+            <a className={styles.link} href={link.url}>{link.name}</a>
         </li>
     )
 }

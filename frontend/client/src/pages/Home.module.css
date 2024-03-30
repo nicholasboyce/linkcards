@@ -24,8 +24,10 @@
 }
 
 .logo {
+    /* display: inline-block; */
     font-weight: 600;
     font-size: var(--fs-600);
+    color: var(--clr-neutral-100);
 }
 
 .main {
@@ -51,6 +53,7 @@
 .button:focus,
 .button:active {
     background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-1100);
 }
 
 .button:visited {
@@ -75,7 +78,7 @@
 }
 
 .heroHeaderTitle {
-    font-size: clamp(3rem, 0.534rem + 5.24vw, 5.25rem);
+    font-size: clamp(3rem, -4.568rem + 10.909vw, 5.25rem);
     font-weight: var(--fw-bold);
     /* margin-block-start: 10rem; */
 }
@@ -89,7 +92,7 @@
     width: min(100vw, 386px);
     border-radius: 0.5rem;
     /* margin-block-start: 4rem; */
-    grid-row: 2;
+    grid-row: 2 / 4;
     grid-column: 2;
     box-shadow: var(--clr-neutral-990) 3px 3px 10px;
 }

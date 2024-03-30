@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <div className={styles.home} role="presentation">
             <nav className={styles.nav}>
-                <p className={styles.logo}><a href="">LinkCards</a></p>
+                <Link to='/' className={styles.logo}>LinkCards</Link>
                 <Link to='/login' className={styles.button}>Sign In</Link>
             </nav>
             <main className={styles.main}>

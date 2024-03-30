@@ -13,9 +13,11 @@
 }
 
 .logo {
+    display: inline-block;
     font-weight: 600;
     font-size: var(--fs-600);
     margin-block-end: 2rem;
+    color: var(--clr-neutral-100);
 }
 
 .formBlock {

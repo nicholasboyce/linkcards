@@ -53,7 +53,7 @@ const Login = () => {
         <>
         <div role='presentation' className={styles.loginPage}>
             <div className={styles.formBlock} role='presentation'>
-                <p className={styles.logo}><Link to='/'>LinkCards</Link></p>
+                <Link to='/' className={styles.logo}>LinkCards</Link>
                 <main className={styles.main}>
                     <form action="/api/users" method="post" noValidate='novalidate' className={styles.loginForm} onSubmit={validateForm}>
                         <h1 className={styles.formHeading}>Sign in to your account</h1>
