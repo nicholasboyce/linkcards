@@ -44,6 +44,8 @@ const Login = () => {
                 method: 'POST',
                 body: convertToJSON(data)
             });
+        } else {
+            setValid(false);
         }
     }
 

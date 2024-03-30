@@ -21,7 +21,7 @@
 .formBlock {
     grid-column: content;
     grid-row: content;
-    padding: 4rem;
+    padding: clamp(2rem, 1.429rem + 2.857vw, 4rem) clamp(1rem, 0.143rem + 4.286vw, 4rem);
     background-color: var(--clr-neutral-990);
     box-shadow: var(--clr-neutral-900) 0 7px 7px -2px;
     border-radius: 0.5rem;
@@ -49,11 +49,6 @@
     border: none
 }
 
-.loginFormItem input:focus {
-    /* border: 3px solid var(--clr-primary-500); */
-    /* outline: none; */
-}
-
 .loginFormSubmit {
     margin-block-start: 1rem;
     padding: 0.75rem;
@@ -65,7 +60,14 @@
 
 .loginFormSubmit:hover {
     cursor: pointer;
+    background-color: var(--clr-primary-350);
 }
+
+.loginFormSubmit:focus,
+.loginFormSubmit:active {
+    background-color: var(--clr-neutral-100);
+}
+
 
 .registerLink,
 .registerLink:visited {
