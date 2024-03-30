@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import Link from "./Link";
+import CardLink from "./CardLink";
 import styles from './Links.module.css';
 
 const Links = ({ data }) => {
     const links = data;
     return (
         <ul className={styles.list}>
-            {links.map(link => <Link key={link.id} link={link}/>)}
+            {links.map(link => <CardLink key={link.id} link={link}/>)}
         </ul>
     )
 }

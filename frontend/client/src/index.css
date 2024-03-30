@@ -6,6 +6,8 @@
   --clr-neutral-990: hsl(0, 0%, 12%);
   --clr-neutral-1100: hsl(0, 0%, 8%);
 
+  --clr-accent-300: hsl(6, 93%, 80%);
+
   --ff-primary: 'Inter', system-ui, sans-serif;
 
   --fs-400: 0.875rem;

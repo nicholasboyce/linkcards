@@ -72,3 +72,8 @@
     color: var(--clr-primary-500);
     cursor: pointer;
 }
+
+.errorMessage {
+    display: inline-block;
+    color: var(--clr-accent-300);
+}

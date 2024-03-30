@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styles from './Link.module.css';
+import styles from './CardLink.module.css';
 
 const Link = ({ link }) => {
     return (
