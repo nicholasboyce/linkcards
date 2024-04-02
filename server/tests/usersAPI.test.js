@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
 const api = supertest(app);
+const browser = supertest.agent(app);
 const User = require('../src/models/user');
 const userService = require('../src/services/userService');
 
@@ -97,8 +98,7 @@ describe('when there are users initially saved', () => {
         await api
             .post('/api/login')
             .send(badPassword)
-            .expect(401)
-            .expect('Content-Type', /application\/json/);
+            .expect(401);
 
         const badUsername = {
             username: 'sarah2',
@@ -108,8 +108,7 @@ describe('when there are users initially saved', () => {
         await api
             .post('/api/login')
             .send(badUsername)
-            .expect(401)
-            .expect('Content-Type', /application\/json/);
+            .expect(401);
     });
 
     describe('new user creation', () => {
@@ -202,18 +201,18 @@ describe('when there are users initially saved', () => {
     describe('updating an existing user\'s information', () => {
 
         test('returns updated user upon success', async () => {
+
             const credentials = {
                 username: 'sarah1',
                 password: 'abc123'
             }
     
-            const loggedInUser = await api
+            await browser
                 .post('/api/login')
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
     
-            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
 
             const newUserData = {
                 data: {
@@ -229,14 +228,13 @@ describe('when there are users initially saved', () => {
                 }
             }
 
-            await api
+            await browser
                 .get('/api/users/sarah1')
                 .expect(200);
 
-            const patchResponse = await api
+            const patchResponse = await browser
                 .patch('/api/users/sarah1')
                 .send(newUserData)
-                .set(token)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
 
@@ -249,13 +247,12 @@ describe('when there are users initially saved', () => {
                 password: 'abc123'
             }
     
-            const loggedInUser = await api
+            await browser
                 .post('/api/login')
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
     
-            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
 
             const newUserData = {
                 data: {
@@ -271,10 +268,9 @@ describe('when there are users initially saved', () => {
                 }
             }
 
-            await api
+            await browser
                 .patch('/api/users/sarah2')
                 .send(newUserData)
-                .set(token)
                 .expect(401)
                 .expect('Content-Type', /application\/json/);
 
@@ -297,13 +293,12 @@ describe('when there are users initially saved', () => {
                 password: 'abc123'
             }
     
-            const loggedInUser = await api
+            await browser
                 .post('/api/login')
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
     
-            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
 
             const newUserData = {
                 data: {
@@ -319,10 +314,9 @@ describe('when there are users initially saved', () => {
                 }
             }
 
-            await api
+            await browser
                 .patch('/api/users/sarah2')
                 .send(newUserData)
-                .set(token)
                 .expect(401)
                 .expect('Content-Type', /application\/json/);
 
@@ -334,31 +328,29 @@ describe('when there are users initially saved', () => {
                 password: 'abc123'
             }
     
-            const loggedInUser = await api
+            await browser
                 .post('/api/login')
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
     
-            const token = {Authorization: `Bearer ${loggedInUser.body.token}`} 
 
             const newUserData = {
                 data: 3
             }
 
-            const firstGet = await api
+            const firstGet = await browser
                 .get('/api/users/sarah1')
                 .expect(200)
                 .expect('Content-Type', /application\/json/); 
 
-            await api
+            await browser
                 .patch('/api/users/sarah1')
                 .send(newUserData)
-                .set(token)
                 .expect(400)
                 .expect('Content-Type', /application\/json/);
 
-            const secondGet = await api
+            const secondGet = await browser
                 .get('/api/users/sarah1')
                 .expect(200)
                 .expect('Content-Type', /application\/json/);

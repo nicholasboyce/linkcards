@@ -10,6 +10,7 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const passport = require('passport')
+require('./src/strategies/local-strategy')
 
 mongoose.set('strictQuery', false);
 

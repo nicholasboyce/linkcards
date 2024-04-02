@@ -10,9 +10,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     if (!user) {
-        const error = new Error('User not found');
-        error.name = 'UserNotFoundError';
-        done(error, null);
+        done(null, null);
     } else {
         done(null, user);
     }
@@ -26,9 +24,7 @@ exports.localStrategy = passport.use(
           : await bcrypt.compare(password, user.passwordHash);
     
         if (!(user && passwordCorrect)) {
-            const error = new Error('Invalid credentials');
-            error.name = 'InvalidCredentialsError';
-            done(error, null);
+            done(null, null);
         } else {
             done(null, user);
         }

@@ -4,7 +4,7 @@ exports.login = async (request, response) => {
   const { username } = await userService.login(request.user);
 
   if (!username) {
-    return response.sendStatus(401);
+    return response.status(401).send({ error: 'Invalid credentials' });
   }
 
   response.status(200).send({ username });
@@ -36,6 +36,10 @@ exports.createUser = async (request, response) => {
 }
 
 exports.updateUser = async (request, response) => {
+    if (!request.user) {
+        response.sendStatus(401);
+    }
+
     const { updatedUser, error } = await userService.updateUser(request.user, request.params.user, request.body.data);
 
     if (error) {
