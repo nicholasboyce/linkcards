@@ -11,6 +11,9 @@ dependencies:
   cors:
     specifier: ^2.8.5
     version: 2.8.5
+  csrf-sync:
+    specifier: ^4.0.3
+    version: 4.0.3
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
@@ -454,6 +457,12 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /csrf-sync@4.0.3:
+    resolution: {integrity: sha512-wXzltBBzt/7imzDt6ZT7G/axQG7jo4Sm0uXDUzFY8hR59qhDHdjqpW2hojS4oAVIZDzwlMQloIVCTJoDDh0wwA==}
+    dependencies:
+      http-errors: 2.0.0
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

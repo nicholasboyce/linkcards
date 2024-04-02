@@ -5,11 +5,16 @@ const app = express()
 const session = require('express-session')
 const loginRouter = require('./src/routes/login')
 const userRouter = require('./src/routes/users')
+const csrfRouter = require('./src/routes/csrf')
 const logoutRouter = require('./src/routes/logout')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const { csrfSync } = require("csrf-sync")
+const {
+  csrfSynchronisedProtection
+} = csrfSync();
 
 mongoose.set('strictQuery', false);
 
@@ -28,7 +33,8 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-      maxAge: 10000
+      maxAge: 10000,
+      sameSite: 'lax'
     }
 }));
 
@@ -39,6 +45,8 @@ app.use(express.static('dist'));
 app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
 
+app.use('/api/csrf', csrfRouter);
+app.use(csrfSynchronisedProtection);
 app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
 app.use('/api/users', userRouter);
