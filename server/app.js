@@ -9,6 +9,7 @@ const logoutRouter = require('./src/routes/logout')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
+const passport = require('passport')
 
 mongoose.set('strictQuery', false);
 
@@ -25,8 +26,15 @@ app.use(express.json());
 app.use(session({
     secret: config.SECRET,
     saveUninitialized: false,
-    resave: true
+    resave: false,
+    cookie: {
+      maxAge: 10000
+    }
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static('dist'));
 app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);

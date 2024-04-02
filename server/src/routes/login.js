@@ -1,6 +1,9 @@
 const loginRouter = require('express').Router();
 const usersController = require('../controllers/users');
+const passport = require('passport');
+require('../strategies/local-strategy');
 
-loginRouter.post('/', usersController.login);
+loginRouter.post('/', passport.authenticate('local'), usersController.login);
+// loginRouter.post('/', usersController.login);
 
 module.exports = loginRouter;

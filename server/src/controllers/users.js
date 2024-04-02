@@ -1,13 +1,13 @@
 const userService = require('../services/userService');
 
 exports.login = async (request, response) => {
-  const { username, token, error } = await userService.login(request.body);
+  const { username } = await userService.login(request.user);
 
-  if (error) {
-    return response.status(401).json({error});
+  if (!username) {
+    return response.sendStatus(401);
   }
 
-  response.status(200).send({ token, username });
+  response.status(200).send({ username });
 }
 
 exports.logout = async (request, response) => {

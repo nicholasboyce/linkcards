@@ -2,26 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
-exports.login = async ({ username, password }) => {
-    const user = await User.findOne({ username });
-    const passwordCorrect = user === null
-      ? false
-      : await bcrypt.compare(password, user.passwordHash);
-
-    if (!(user && passwordCorrect)) {
-        return { username: null, token: null, error: 'invalid username or password' };
-    }
-
-    const userInfo = user.username;
-
-    const userClaims = {
-        username: userInfo,
-        id: user._id
-    }
-
-    const token = jwt.sign(userClaims, process.env.SECRET);
-
-    return { username: userInfo, token };
+exports.login = async (user) => {
+    return { username: user.username };
 }
 
 exports.createUser = async ({ username, password, data }) => {
