@@ -15,8 +15,15 @@ describe('when there are no users initially saved', () => {
     });
 
     test('login fails as unauthorized without prior user creation', async () => {
-        await api
+        const csrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+        const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+        await browser
             .post('/api/login')
+            .set(csrfToken)
             .send({
                 username: 'sarah1',
                 password: 'abc123'
@@ -25,8 +32,15 @@ describe('when there are no users initially saved', () => {
     });
 
     test('new user creation succeeds with valid input', async () => {
-        await api
+        const csrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+        const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+        await browser
             .post('/api/users')
+            .set(csrfToken)
             .send({
                 username: 'sarah1',
                 password: 'abc123'
@@ -34,36 +48,75 @@ describe('when there are no users initially saved', () => {
             .expect(201);
     });
 
-    test('user creation fails as bad request with invalid input', async () => {
-        await api
-            .post('/api/users')
-            .send({
-                username: 'sarah1'
-            })
-            .expect(400);
-            
-        await api
-            .post('/api/users')
-            .send({
-                password: 'abc123'
-            })
-            .expect(400);
+    describe('user creation fails as bad request', () => {
+        //break up into smaller tests
+        test('without password provided', async () => {
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
 
-        await api
-            .post('/api/users')
-            .send({
-                username: 'sa',
-                password: 'abc123'
-            })
-            .expect(400);
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+            await browser
+                .post('/api/users')
+                .set(csrfToken)
+                .send({
+                    username: 'sarah1'
+                })
+                .expect(400);
+        });
         
-        await api
-            .post('/api/users')
-            .send({
-                username: 'sarah1',
-                password: 'ab'
-            })
-            .expect(400);
+            
+        test('without username provided', async () => {
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+            await browser
+                .post('/api/users')
+                .set(csrfToken)
+                .send({
+                    password: 'abc123'
+                })
+                .expect(400);
+        });
+        
+
+        test('with too short username', async () => {
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+            await browser
+                .post('/api/users')
+                .set(csrfToken)
+                .send({
+                    username: 'sa',
+                    password: 'abc123'
+                })
+                .expect(400);
+        });
+        
+        
+        test('with too short password', async () => {
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+            await browser
+                .post('/api/users')
+                .set(csrfToken)
+                .send({
+                    username: 'sarah1',
+                    password: 'ab'
+                })
+                .expect(400);});
     });
 });
 
@@ -82,8 +135,15 @@ describe('when there are users initially saved', () => {
             password: 'abc123'
         }
 
-        await api
+        const csrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+        const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+        await browser
             .post('/api/login')
+            .set(csrfToken)
             .send(credentials)
             .expect(200)
             .expect('Content-Type', /application\/json/);
@@ -95,8 +155,15 @@ describe('when there are users initially saved', () => {
             password: 'abc122'
         }
 
-        await api
+        const csrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+        const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
+        await browser
             .post('/api/login')
+            .set(csrfToken)
             .send(badPassword)
             .expect(401);
 
@@ -104,9 +171,16 @@ describe('when there are users initially saved', () => {
             username: 'sarah2',
             password: 'abc123'
         }
+
+        const secondCsrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+        const secondCsrfToken = { 'x-csrf-token': secondCsrfResponse.body.token }
     
-        await api
+        await browser
             .post('/api/login')
+            .set(secondCsrfToken)
             .send(badUsername)
             .expect(401);
     });
@@ -117,9 +191,16 @@ describe('when there are users initially saved', () => {
                 username: 'sarah2',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
-            await api
+            await browser
                 .post('/api/users')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(201)
                 .expect('Content-Type', /application\/json/);
@@ -161,9 +242,16 @@ describe('when there are users initially saved', () => {
                 password: 'abc123',
                 data
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
             
-            await api
+            await browser
                 .post('/api/users')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(201)
                 .expect('Content-Type', /application\/json/);
@@ -181,9 +269,16 @@ describe('when there are users initially saved', () => {
                 username: 'sarah1',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
-            await api
+            await browser
                 .post('/api/users')
+                .set(csrfToken)
                 .send(badCredentials)
                 .expect(400)
                 .expect('Content-Type', /application\/json/);
@@ -206,9 +301,16 @@ describe('when there are users initially saved', () => {
                 username: 'sarah1',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+            .get('/api/csrf')
+            .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
             await browser
                 .post('/api/login')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
@@ -232,8 +334,15 @@ describe('when there are users initially saved', () => {
                 .get('/api/users/sarah1')
                 .expect(200);
 
+            const secondCsrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const secondCsrfToken = { 'x-csrf-token': secondCsrfResponse.body.token }
+
             const patchResponse = await browser
                 .patch('/api/users/sarah1')
+                .set(secondCsrfToken)
                 .send(newUserData)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
@@ -246,9 +355,16 @@ describe('when there are users initially saved', () => {
                 username: 'sarah1',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
             await browser
                 .post('/api/login')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
@@ -268,8 +384,15 @@ describe('when there are users initially saved', () => {
                 }
             }
 
+            const secondCsrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const secondCsrfToken = { 'x-csrf-token': secondCsrfResponse.body.token }
+
             await browser
                 .patch('/api/users/sarah2')
+                .set(secondCsrfToken)
                 .send(newUserData)
                 .expect(401)
                 .expect('Content-Type', /application\/json/);
@@ -277,16 +400,10 @@ describe('when there are users initially saved', () => {
         });
 
         test('fails if agent is not logged in', async () => {
-            const realCredentials = {
+            await userService.createUser({
                 username: 'sarah2',
                 password: 'abc123'
-            }
-    
-            await api
-                .post('/api/users')
-                .send(realCredentials)
-                .expect(201)
-                .expect('Content-Type', /application\/json/);
+            });
 
             const newUserData = {
                 data: {
@@ -302,32 +419,40 @@ describe('when there are users initially saved', () => {
                 }
             }
 
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
+
             await browser
                 .patch('/api/users/sarah2')
+                .set(csrfToken)
                 .send(newUserData)
                 .expect(401)
                 .expect('Content-Type', /application\/json/);
         });
 
         test('fails if agent is not authorized to change target info', async () => {
-            const realCredentials = {
+            await userService.createUser({
                 username: 'sarah2',
                 password: 'abc123'
-            }
-    
-            await api
-                .post('/api/users')
-                .send(realCredentials)
-                .expect(201)
-                .expect('Content-Type', /application\/json/);
+            });
 
             const credentials = {
                 username: 'sarah1',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
             await browser
                 .post('/api/login')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
@@ -347,8 +472,15 @@ describe('when there are users initially saved', () => {
                 }
             }
 
+            const secondCsrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const secondCsrfToken = { 'x-csrf-token': secondCsrfResponse.body.token }
+
             await browser
                 .patch('/api/users/sarah2')
+                .set(secondCsrfToken)
                 .send(newUserData)
                 .expect(401)
                 .expect('Content-Type', /application\/json/);
@@ -360,9 +492,16 @@ describe('when there are users initially saved', () => {
                 username: 'sarah1',
                 password: 'abc123'
             }
+
+            const csrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const csrfToken = { 'x-csrf-token': csrfResponse.body.token }
     
             await browser
                 .post('/api/login')
+                .set(csrfToken)
                 .send(credentials)
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
@@ -375,10 +514,17 @@ describe('when there are users initially saved', () => {
             const firstGet = await browser
                 .get('/api/users/sarah1')
                 .expect(200)
-                .expect('Content-Type', /application\/json/); 
+                .expect('Content-Type', /application\/json/);
+                
+            const secondCsrfResponse = await browser
+                .get('/api/csrf')
+                .expect(200);
+    
+            const secondCsrfToken = { 'x-csrf-token': secondCsrfResponse.body.token }
 
             await browser
                 .patch('/api/users/sarah1')
+                .set(secondCsrfToken)
                 .send(newUserData)
                 .expect(400)
                 .expect('Content-Type', /application\/json/);

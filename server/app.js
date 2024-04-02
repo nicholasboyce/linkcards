@@ -33,7 +33,7 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-      maxAge: 10000,
+      maxAge: 60000,
       // sameSite: 'lax' commenting out because while testing it may affect fetch requests
     }
 }));
