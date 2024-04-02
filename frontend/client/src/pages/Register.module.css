@@ -1,0 +1,78 @@
+.registerPage {
+    background-image: linear-gradient(
+        200deg,
+        var(--clr-neutral-1100) 60%, 
+        var(--clr-primary-500) 60%
+    );
+    color: var(--clr-neutral-100);
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 
+        [full-width-start] 1fr [content-start] min(90vw, 541px) [content-end] 1fr [full-width-end];
+    grid-template-rows: minmax(2rem, 1fr) [content-start] auto [content-end] minmax(2rem, 1fr);
+}
+
+.logo {
+    display: inline-block;
+    font-weight: 600;
+    font-size: var(--fs-600);
+    margin-block-end: 2rem;
+    color: var(--clr-neutral-100);
+}
+
+.formBlock {
+    grid-column: content;
+    grid-row: content;
+    padding: clamp(2rem, 1.429rem + 2.857vw, 4rem) clamp(1rem, 0.143rem + 4.286vw, 4rem);
+    background-color: var(--clr-neutral-990);
+    box-shadow: var(--clr-neutral-900) 0 7px 7px -2px;
+    border-radius: 0.5rem;
+}
+
+.registerForm {
+    display: grid;
+    row-gap: 1.5rem;
+    margin-block-end: 2rem;
+}
+
+.formHeading {
+    font-size: var(--fs-750);
+    font-weight:var(--fw-semi-bold);
+}
+
+.registerFormItem {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.registerFormItem input {
+    padding: 0.75rem;
+    border-radius: 0.2rem;
+    border: none
+}
+
+.registerFormSubmit {
+    margin-block-start: 1rem;
+    padding: 0.75rem;
+    color: var(--clr-neutral-1100);
+    background-color: var(--clr-primary-500);
+    border: none;
+    border-radius: 0.2rem;
+}
+
+.registerFormSubmit:hover {
+    cursor: pointer;
+    background-color: var(--clr-primary-350);
+}
+
+.registerFormSubmit:focus,
+.registerFormSubmit:active {
+    background-color: var(--clr-neutral-100);
+}
+
+
+.loginLink,
+.loginLink:visited {
+    color: var(--clr-primary-500);
+    cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.registerFormItem {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.registerFormItem input {
+    padding: 0.75rem;
+    border-radius: 0.2rem;
+    border: none
+}
+
+.errorMessage {
+    display: inline-block;
+    color: var(--clr-accent-300);
+}

@@ -26,7 +26,7 @@ const Login = () => {
         const data = new FormData(form);
         
         if (form.reportValidity()) {
-            fetch('/login', {
+            fetch('/api/login', {
                 method: 'POST',
                 body: convertToJSON(data)
             });
@@ -41,7 +41,7 @@ const Login = () => {
             <div className={styles.formBlock} role='presentation'>
                 <Link to='/' className={styles.logo}>LinkCards</Link>
                 <main className={styles.main}>
-                    <form action="/api/users" method="post" noValidate='novalidate' className={styles.loginForm} onSubmit={validateForm}>
+                    <form action="/api/login" method="post" noValidate='novalidate' className={styles.loginForm} onSubmit={validateForm}>
                         <h1 className={styles.formHeading}>Sign in to your account</h1>
                         <LoginFormItem id='username' text='Username' type='text' length={3} name='username' />
                         <LoginFormItem id='password' text='Password' type='password' length={5} name='password' />
