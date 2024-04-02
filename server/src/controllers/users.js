@@ -36,10 +36,6 @@ exports.createUser = async (request, response) => {
 }
 
 exports.updateUser = async (request, response) => {
-    if (!request.user) {
-        response.sendStatus(401);
-    }
-
     const { updatedUser, error } = await userService.updateUser(request.user, request.params.user, request.body.data);
 
     if (error) {

@@ -276,6 +276,39 @@ describe('when there are users initially saved', () => {
 
         });
 
+        test('fails if agent is not logged in', async () => {
+            const realCredentials = {
+                username: 'sarah2',
+                password: 'abc123'
+            }
+    
+            await api
+                .post('/api/users')
+                .send(realCredentials)
+                .expect(201)
+                .expect('Content-Type', /application\/json/);
+
+            const newUserData = {
+                data: {
+                    info: {
+                        bio: 'I\'m a really good swimmer'
+                    },
+                    links: [
+                        {
+                            name: 'Github',
+                            url: 'github.com/sarahsarahbarah'
+                        }
+                    ]
+                }
+            }
+
+            await browser
+                .patch('/api/users/sarah2')
+                .send(newUserData)
+                .expect(401)
+                .expect('Content-Type', /application\/json/);
+        });
+
         test('fails if agent is not authorized to change target info', async () => {
             const realCredentials = {
                 username: 'sarah2',

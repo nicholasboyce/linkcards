@@ -39,7 +39,7 @@ exports.getUser = async (username) => {
 }
 
 exports.updateUser = async (agent, target, updatedInfo) => {
-    if (agent.username.toString() === target.toString()) {
+    if (agent && (agent.username.toString() === target.toString())) {
         agent.data = updatedInfo;
         await agent.save();
         return { updatedUser: agent }

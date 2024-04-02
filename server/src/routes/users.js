@@ -1,8 +1,6 @@
 const usersRouter = require('express').Router();
 const usersController = require('../controllers/users');
 const cors = require('cors');
-// const passport = require('passport');
-// require('../strategies/local-strategy');
 
 const corsOptions = {
     origin: 'http://localhost:5173'
