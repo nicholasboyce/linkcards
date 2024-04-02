@@ -5,6 +5,7 @@ const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
   logger.info('Path:  ', request.path)
   logger.info('Body:  ', request.body)
+  logger.info('Session ID: ', request.session.id)
   logger.info('---')
   next()
 }
@@ -37,10 +38,6 @@ const tokenExtractor = (request, response, next) => {
     request.token = authorization.replace('Bearer ', '')  
   }
   next()
-}
-
-const csrfTokenGenerator = (request, response) => {
-
 }
 
 module.exports = {
