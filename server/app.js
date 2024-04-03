@@ -43,7 +43,6 @@ app.use(passport.session());
 
 app.use(express.static('dist'));
 app.use(middleware.requestLogger);
-app.use(middleware.tokenExtractor);
 
 app.use('/api/csrf', csrfRouter);
 app.use(csrfSynchronisedProtection);

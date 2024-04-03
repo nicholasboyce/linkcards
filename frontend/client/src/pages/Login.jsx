@@ -6,6 +6,7 @@ import LoginFormItem from '../components/LoginFormItem';
 const Login = () => {
 
     const [reRender, setRerender] = useState(0);
+    const [validity, setValidity] = useState(true);
 
     const convertToJSON = (data) => {
         const json = {};
@@ -13,23 +14,35 @@ const Login = () => {
         data.forEach((value, key) => {
             if(!Reflect.has(json, key)) {
                 json[key] = value;
-                return;
             }
         });
 
         return JSON.stringify(json);
     }
 
-    const validateForm = (e) => {
+    const validateForm = async (e) => {
         e.preventDefault();
         const form = e.target;
         const data = new FormData(form);
         
         if (form.reportValidity()) {
-            fetch('/api/login', {
+            const csrfResponse = await fetch('/api/csrf');
+            const csrf = await csrfResponse.json()
+            const options = new Request('/api/login', {
                 method: 'POST',
-                body: convertToJSON(data)
+                headers: {
+                    'x-csrf-token': csrf.token,
+                    'Content-Type': 'application/json',
+                    'X-ZIGGY-ZANG': 'hoohah'
+                },
+                body: convertToJSON(data),
+                credentials: 'include'
             });
+            const response = await fetch(options);
+            const status = response.status;
+            if (status === 200) {
+                console.log('success');
+            }
         } else {
             setRerender(reRender =>  (reRender + 1) % 2);
         }

@@ -26,6 +26,8 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })  
   } else if (error.name === 'InvalidCredentialsError') {
     return response.status(401).json({ error: error.message })
+  } else if (error.name === 'ForbiddenError') {
+    return response.status(403).json({ error: error.message })
   }
 
   next(error)

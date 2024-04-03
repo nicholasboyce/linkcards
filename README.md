@@ -17,15 +17,15 @@ Users can connect their accounts to their LinkedIn profile in order to create th
 ### Frontend:
 * [React](https://react.dev/) - The frontend framework used
 * [React Router](https://reactrouter.com/en/main) - Library for managing page rendering
-* [CSS Modules](https://rometools.github.io/rome/) - Used to selectively style components
+* [CSS Modules](https://github.com/css-modules/css-modules) - Used to selectively style components
 
 ### Backend
-* [Node.js](http://www.dropwizard.io/1.0.2/docs/) - The Javascript runtime
-* [Express](https://maven.apache.org/) - The backend framework used
-* [MongoDB](https://rometools.github.io/rome/) - BSON Database
-* [PassportJS](https://rometools.github.io/rome/) - Authentication framework
-* [BCrypt](https://rometools.github.io/rome/) - Used to securely hash and salt passwords
-* [csrf-sync](https://rometools.github.io/rome/) - Used to implement synchronized CSRF protection
+* [Node.js](https://nodejs.org/en) - The Javascript runtime
+* [Express](https://expressjs.com/) - The backend framework used
+* [MongoDB](https://www.mongodb.com/) - BSON Database
+* [PassportJS](https://www.passportjs.org/) - Authentication framework
+* [BCrypt](https://github.com/kelektiv/node.bcrypt.js) - Used to securely hash and salt passwords
+* [csrf-sync](https://github.com/Psifi-Solutions/csrf-sync) - Used to implement synchronized CSRF protection
 
 ## Authors
 
