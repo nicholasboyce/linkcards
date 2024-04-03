@@ -15,9 +15,8 @@ function App() {
       <Route path='/' element={<Home loggedIn={loggedIn} />} />
       <Route path='/login' element={<Login loggedIn={loggedIn} />} />
       <Route path='/register' element={<Register loggedIn={loggedIn} />} />
-      <Route path='/:user' element={<User loggedIn={loggedIn} />}>
-        <Route path='edit' element={<EditForm loggedIn={loggedIn} />} />
-      </Route>
+      <Route path='/:user' element={<User loggedIn={loggedIn} />} />
+      <Route path='/:user/edit' element={<EditForm loggedIn={loggedIn} />} />
     </Routes>
   )
 }

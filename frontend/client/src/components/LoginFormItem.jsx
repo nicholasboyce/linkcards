@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styles from './LoginFormItem.module.css';
 
-const LoginFormItem = ({ id, text, type, length, name }) => {
+const LoginFormItem = ({ formValid, id, text, type, length, name }) => {
 
     const valid = useRef(true);
     const errorMessage= useRef('');
@@ -32,6 +32,7 @@ const LoginFormItem = ({ id, text, type, length, name }) => {
             <label htmlFor={id}>{text}</label>
             <input ref={inputRef} type={type} id={id} name={name} aria-describedby='loginFormError' required onChange={validateInput} onInvalid={(e) => e.preventDefault()} minLength={length}/>
             {!valid.current && <span className={styles.errorMessage} id='loginFormError' aria-live='polite'>{errorMessage.current}</span>}
+            {!formValid && <span className={styles.errorMessage} id='loginFormError' aria-live='polite'>Invalid username or password</span>}
         </p>
     )
 }
