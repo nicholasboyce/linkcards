@@ -12,7 +12,7 @@
     grid-template-columns: 
         [full-width-start] 1fr [content-start] var(--content-width) [content-end] 1fr [full-width-end];
     grid-template-rows: auto 1fr;
-    padding-block: 3rem 2rem;
+    padding-block: 3rem 4.5rem;
 }
 
 .nav {
@@ -38,7 +38,7 @@
     /* align-items: center; */
     grid-template-rows: 3rem 3rem auto;
     column-gap: 2rem;
-    min-height: 100svh;
+    /* min-height: 100svh; */
 }
 
 .button {
