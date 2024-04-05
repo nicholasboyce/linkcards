@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
@@ -75,8 +75,11 @@ const User = (props) => {
 
     return (
         <>
+            <nav>
+                <Link to='/'>LinkCards</Link>
+                <Link to='/login'>Sign In</Link>
+            </nav>
             <Card data={data} picture={picture}/>
-            <Outlet />
         </>
     )
 }
