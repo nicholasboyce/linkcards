@@ -127,23 +127,10 @@ const EditForm = () => {
                     <input type="text" name="bio" id="bio" placeholder={userData.data.info.bio} />
                 </li>
             </ul>
-            {/* <fieldset className={styles.formLinksGroup}>
-                <legend>Edit Your Links</legend>
-                <ul className={styles.formLinks}>
-                    {
-                        userData.data.links.map((link) => 
-                            <li className={styles.formLink} key={link.id}>
-                                <label htmlFor={link.id}>{link.name}:</label>
-                                <input type="text" name={link.name} id={link.id} placeholder={link.url} />
-                            </li>
-                        )
-                    }
-                </ul>
-            </fieldset> */}
             {
                 userData.data.links.map((link, index) => 
                     <fieldset key={link.id} id={link.id}>
-                        <legend>{`Edit Link #${index + 1}: `}<span className='visually-hidden'>{link.name}</span></legend>
+                        <legend>{`Edit Link #${index + 2}: `}<span className='visually-hidden'>{link.name}</span></legend>
                         <p className={styles.formItem}>
                             <label htmlFor={`${link.id}-Name`}>Name:</label>
                             <input type="text" name={link.name} id={`${link.id}-Name`} placeholder={link.name}/>

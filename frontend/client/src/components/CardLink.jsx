@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './CardLink.module.css';
 
-const Link = ({ link }) => {
+const CardLink = ({ link }) => {
     return (
         <li className={styles.linkItem}>
             <a className={styles.link} href={link.url}>{link.name}</a>
@@ -9,8 +9,8 @@ const Link = ({ link }) => {
     )
 }
 
-Link.propTypes = {
+CardLink.propTypes = {
     link: PropTypes.object
 }
 
-export default Link;
+export default CardLink;

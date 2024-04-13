@@ -1,15 +1,13 @@
 import styles from './Home.module.css';
 import imgUrl from '../assets/product-screenshot.png';
 import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 const Home = () => {
 
     return (
         <div className={styles.home} role="presentation">
-            <nav className={styles.nav}>
-                <Link to='/' className={styles.logo}>LinkCards</Link>
-                <Link to='/login' className={styles.button}>Sign In</Link>
-            </nav>
+            <NavBar />
             <main className={styles.main}>
                 <hgroup className={styles.heroHeader}>
                     <h1 className={styles.heroHeaderTitle}>Found your missing link.</h1>

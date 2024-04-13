@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import styles from './User.module.css';
 
 
-const User = (props) => {
+const User = () => {
 
     const [data, setData] = useState(
     {
@@ -75,9 +75,9 @@ const User = (props) => {
 
     return (
         <>
-            <nav>
-                <Link to='/'>LinkCards</Link>
-                <Link to='/login'>Sign In</Link>
+            <nav className={styles.nav}>
+                <Link to='/' className={styles.logo}>LinkCards</Link>
+                <Link to='/login' className={styles.button}>Sign In</Link>
             </nav>
             <Card data={data} picture={picture}/>
         </>
