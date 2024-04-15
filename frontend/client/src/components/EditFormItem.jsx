@@ -6,10 +6,9 @@ const EditFormItem = ({ link, index, solo, handleRemoval }) => {
     const removeLink = async (e) => {
         e.preventDefault();
         handleRemoval();
-        console.log('After prop fxn called');
     }
 
-    if (!(link && link.name)) {
+    if (!link) {
         const [linkName, setLinkName] = useState('');
         const [linkURL, setLinkURL] = useState('');
 
@@ -24,6 +23,7 @@ const EditFormItem = ({ link, index, solo, handleRemoval }) => {
                     <label htmlFor={`Link-${index + 1}-URL`}>Link:</label>
                     <input type="text" name='Link' id={`Link-${index + 1}-URL`} value={linkURL} onChange={(e) => setLinkURL(e.target.value)} required/>
                 </p>
+                {!solo && <button aria-label={`Remove Link #${index + 1}`} className={styles.test} onClick={removeLink}>-</button>}
             </fieldset>
         )
     } else {
@@ -41,7 +41,7 @@ const EditFormItem = ({ link, index, solo, handleRemoval }) => {
                     <label htmlFor={`${link.id}-Link`}>Link:</label>
                     <input type="text" name={link.url} id={`${link.id}-Link`} value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
                 </p>
-                {!solo && <button aria-label={`Remove Link #${index + 2}: ${link.name}`} className={styles.test} onClick={removeLink}>-</button>}
+                {!solo && <button aria-label={`Remove Link #${index + 1}: ${link.name}`} className={styles.test} onClick={removeLink}>-</button>}
             </fieldset>
         )
     }
