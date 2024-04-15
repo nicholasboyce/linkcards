@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import User from './pages/User';
-import EditForm from './pages/EditForm';
+import EditFormPage from './pages/EditFormPage';
 import { useState } from 'react';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -16,7 +16,7 @@ function App() {
       <Route path='/login' element={<Login loggedIn={loggedIn} />} />
       <Route path='/register' element={<Register loggedIn={loggedIn} />} />
       <Route path='/:user' element={<User loggedIn={loggedIn} />} />
-      <Route path='/:user/edit' element={<EditForm loggedIn={loggedIn} />} />
+      <Route path='/:user/edit' element={<EditFormPage loggedIn={loggedIn} />} />
     </Routes>
   )
 }

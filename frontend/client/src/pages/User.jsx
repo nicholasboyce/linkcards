@@ -1,5 +1,6 @@
 import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
+import NavBar from '../components/NavBar';
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from './User.module.css';
@@ -74,13 +75,10 @@ const User = () => {
     console.log(user);
 
     return (
-        <>
-            <nav className={styles.nav}>
-                <Link to='/' className={styles.logo}>LinkCards</Link>
-                <Link to='/login' className={styles.button}>Sign In</Link>
-            </nav>
+        <div role='presentation' className={styles.user}>
+            <NavBar />
             <Card data={data} picture={picture}/>
-        </>
+        </div>
     )
 }
 

@@ -1,9 +1,10 @@
-// import { useState } from 'react';
-import styles from './EditForm.module.css';
+import styles from './EditFormPage.module.css';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import NavBar from '../components/NavBar';
+import EditForm from '../components/EditForm';
 
-const EditForm = () => {
+const EditFormPage = () => {
     const { user } = useParams();
     const [userData, setUserData] = useState(
     {
@@ -72,9 +73,8 @@ const EditForm = () => {
         const links = [];
         for (const fieldset of fieldsets) {
             const link = {
-                id: fieldset.id,
-                name: fieldset.elements[0].value || fieldset.elements[0].name, 
-                url: fieldset.elements[1].value || fieldset.elements[1].name
+                name: fieldset.elements[0].value, 
+                url: fieldset.elements[1].value
             }
             links.push(link);
         }
@@ -106,47 +106,14 @@ const EditForm = () => {
 
     return (
         <>
-        <main className={styles.main}>
-        <form className={styles.form} action='/' aria-labelledby='edit-form-heading' onSubmit={handleSubmit}>
-            <h1 className="visually-hidden" id='edit-form-heading'>User Info Editing Form</h1>
-            <ul className={styles.formInputs}>
-                <li className={styles.formItem}>
-                    <label htmlFor="username">Username: </label>
-                    <input id="username" name='username' type="text" placeholder={userData.username} disabled/>
-                </li>
-                <li className={styles.formItem}>
-                    <label htmlFor="name">Name: </label>
-                    <input id="name" name='name' type="text" placeholder={userData.data.info.name} />
-                </li>
-                <li className={styles.formItem}>
-                    <label htmlFor="location">Location: </label>
-                    <input type="text" name="location" id="location" placeholder={userData.data.info.location} />
-                </li>
-                <li className={styles.formItem}>
-                    <label htmlFor="bio">Bio: </label>
-                    <input type="text" name="bio" id="bio" placeholder={userData.data.info.bio} />
-                </li>
-            </ul>
-            {
-                userData.data.links.map((link, index) => 
-                    <fieldset key={link.id} id={link.id}>
-                        <legend>{`Edit Link #${index + 2}: `}<span className='visually-hidden'>{link.name}</span></legend>
-                        <p className={styles.formItem}>
-                            <label htmlFor={`${link.id}-Name`}>Name:</label>
-                            <input type="text" name={link.name} id={`${link.id}-Name`} placeholder={link.name}/>
-                        </p>
-                        <p className={styles.formItem}>
-                            <label htmlFor={`${link.id}-Link`}>Link:</label>
-                            <input type="text" name={link.url} id={`${link.id}-Link`} placeholder={link.url} />
-                        </p>
-                    </fieldset>
-                )
-            }
-            <button type="submit">Submit</button>
-        </form>
-        </main>
+        <div className={styles.page}>
+            <NavBar />
+            <main className={styles.main}>
+                <EditForm handleSubmit={handleSubmit} links={userData.data.links} username={userData.username} location={userData.data.info.location} name={userData.data.info.name} bio={userData.data.info.bio} />
+            </main>
+        </div>
         </>
     )
 }
 
-export default EditForm; 
+export default EditFormPage; 

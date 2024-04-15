@@ -1,0 +1,41 @@
+.fieldSet {
+    padding-block: 0.5rem 1.5rem;
+    position: relative;
+}
+
+.formItem {
+    display: grid;
+    row-gap: 0.25rem;
+    width: 90%;
+    margin-inline: auto;
+}
+
+.formItem label {
+    text-align: left;
+}
+
+.test {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    width: 2rem;
+    background-color: darkred;
+    border-radius: 50%;
+    position: absolute;
+    right: -1rem;
+    top: -1.5rem;
+    border: none;
+    color: white;
+}
+
+.test:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 375px) {
+    .formItem {
+        margin-inline: 0;
+        width: 100%;
+    }
+}
