@@ -1,12 +1,14 @@
 import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
 import NavBar from '../components/NavBar';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from './User.module.css';
+import { useAuthStatus } from '../AuthContext';
 
 
 const User = () => {
+    const authenticated = useAuthStatus();
 
     const [data, setData] = useState(
     {
@@ -72,7 +74,7 @@ const User = () => {
         return () => abortController.abort();
     }, [user]);
 
-    console.log(user);
+    console.log(user, authenticated);
 
     return (
         <div role='presentation' className={styles.user}>

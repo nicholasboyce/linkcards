@@ -6,7 +6,6 @@ const EditForm = ({ handleSubmit, links, username, name, location, bio }) => {
 
     const [linksShown, setLinksShown] = useState(links);
     const [nameShown, setNameShown] = useState(name);
-    const [usernameShown, setUsernameShown] = useState(username);
     const [locationShown, setLocationShown] = useState(location);
     const [bioShown, setBioShown] = useState(bio);
 
@@ -58,7 +57,7 @@ const EditForm = ({ handleSubmit, links, username, name, location, bio }) => {
                 )
             }
             <menu className={styles.buttonMenu}>
-                {linksShown.length < 6 &&
+                {linksShown.length < 5 &&
                     <li>
                         <button onClick={addNew}>Add Link</button>
                     </li>

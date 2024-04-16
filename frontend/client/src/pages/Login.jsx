@@ -3,12 +3,14 @@ import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
 import LoginFormItem from '../components/LoginFormItem';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStatusUpdate } from '../AuthContext';
 
 const Login = () => {
 
     const [reRender, setRerender] = useState(0);
     const [validity, setValidity] = useState(true);
     const navigate = useNavigate();
+    const authenticator = useAuthStatusUpdate();
 
     const convertToJSON = (data) => {
         const json = {};
@@ -42,8 +44,8 @@ const Login = () => {
             const response = await fetch(options);
             const status = response.status;
             if (status === 200) {
-                console.log('success');
-                navigate(`/${data.get('username')}`)
+                authenticator.authenticate();
+                navigate(`/${data.get('username')}`);
             } else {
                 setValidity(false);
             }
