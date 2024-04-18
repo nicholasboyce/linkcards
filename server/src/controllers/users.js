@@ -11,8 +11,8 @@ exports.login = async (request, response) => {
 }
 
 exports.logout = async (request, response) => {
-    response
-        .status(404);
+    request.logout();
+    response.sendStatus(200);
 }
 
 exports.getAllUsers = async (request, response) => {

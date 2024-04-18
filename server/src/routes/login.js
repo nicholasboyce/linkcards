@@ -4,6 +4,6 @@ const passport = require('passport');
 require('../strategies/local-strategy');
 
 
-loginRouter.post('/',passport.authenticate('local'), usersController.login);
+loginRouter.post('/', passport.authenticate('local'), usersController.login);
 
 module.exports = loginRouter;
