@@ -18,8 +18,11 @@ const AuthContextProvider = ({ children }) => {
         setLoggedIn(true);
     }
     
-    const logout = () => {
+    const logout = async () => {
         setLoggedIn(false);
+        await fetch('/api/logout', {
+            method: "POST"
+        });
     }
 
     const authStatusObject = {
