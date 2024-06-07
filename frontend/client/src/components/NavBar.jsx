@@ -3,7 +3,7 @@ import styles from './NavBar.module.css';
 import { useAuthStatus, useAuthStatusUpdate } from '../AuthContext';
 
 const NavBar = () => {
-    const authenticated = useAuthStatus();
+    const { authenticated, user } = useAuthStatus();
     const authController = useAuthStatusUpdate();
 
     const navigate = useNavigate();
@@ -13,6 +13,8 @@ const NavBar = () => {
         authController.logout();
         navigate('/');
     }
+
+    console.log(authenticated);
 
     return (
     <nav className={styles.nav}>

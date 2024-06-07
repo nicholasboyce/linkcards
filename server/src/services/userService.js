@@ -47,3 +47,7 @@ exports.updateUser = async (agent, target, updatedInfo) => {
         return { updatedUser: null, error: 'Permission not granted' }
     }
 }
+
+exports.getUserStatus = async (agent) => {
+    return agent ? true : false;
+}

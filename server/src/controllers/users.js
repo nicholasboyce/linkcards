@@ -1,3 +1,4 @@
+const { authenticate } = require('passport');
 const userService = require('../services/userService');
 
 exports.login = async (request, response) => {
@@ -43,4 +44,12 @@ exports.updateUser = async (request, response) => {
     }
 
     response.json(updatedUser);
+}
+
+exports.getUserStatus = async (request, response) => {
+    const authenticated = await userService.getUserStatus(request.user);
+    if (authenticated) {
+        return response.status(200).json(request.user);
+    }
+    response.sendStatus(401);
 }

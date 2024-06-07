@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const AuthContext = React.createContext();
 const AuthUpdateContext = React.createContext();
@@ -13,6 +13,32 @@ const useAuthStatusUpdate = () => {
 
 const AuthContextProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        const abortController = new AbortController();
+    
+        const fetchUserStatus = async () => {
+          try {
+            const response = await fetch(`/api/users/status/`, {
+              signal: abortController.signal
+            });
+
+            if (response.status === 200) {
+                const userData = await response.json();
+                setLoggedIn(true);
+                setUser(userData.username);
+            }
+    
+            // setPicture(userData.picture);
+          } catch(error) {
+            console.log(error);
+          }
+        }
+    
+        fetchUserStatus();
+        return () => abortController.abort();
+    }, []);
 
     const authenticate = () => {
         setLoggedIn(true);
@@ -25,15 +51,15 @@ const AuthContextProvider = ({ children }) => {
         });
     }
 
-    const authStatusObject = {
+    const authStatusUpdateObject = {
         authenticate,
         logout,
         login: authenticate
     }
 
     return (
-        <AuthContext.Provider value={loggedIn}>
-            <AuthUpdateContext.Provider value={authStatusObject}>
+        <AuthContext.Provider value={{ authenticated: loggedIn, user }}>
+            <AuthUpdateContext.Provider value={authStatusUpdateObject}>
                 {children}
             </AuthUpdateContext.Provider>
         </AuthContext.Provider>

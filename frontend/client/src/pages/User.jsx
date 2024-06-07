@@ -8,7 +8,7 @@ import { useAuthStatus } from '../AuthContext';
 
 
 const User = () => {
-    const authenticated = useAuthStatus();
+    const status = useAuthStatus();
 
     const [data, setData] = useState(
     {
@@ -74,7 +74,7 @@ const User = () => {
         return () => abortController.abort();
     }, [user]);
 
-    console.log(user, authenticated);
+    console.log(user, status.authenticated);
 
     return (
         <div role='presentation' className={styles.user}>

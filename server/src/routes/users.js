@@ -7,6 +7,7 @@ const corsOptions = {
 };
 
 usersRouter.get('/', usersController.getAllUsers);
+usersRouter.get('/status', cors(corsOptions), usersController.getUserStatus);
 usersRouter.get('/:user', cors(corsOptions), usersController.getUser);
 usersRouter.post('/', usersController.createUser);
 usersRouter.patch('/:user', usersController.updateUser);
