@@ -1,11 +1,14 @@
 import styles from './EditFormPage.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import EditForm from '../components/EditForm';
+import { useAuthStatus } from '../AuthContext';
 
 const EditFormPage = () => {
     const { user } = useParams();
+    const status = useAuthStatus();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState(
     {
         username: '',
@@ -104,16 +107,21 @@ const EditFormPage = () => {
         (response.status === 200) && console.log(await response.json());
     };
 
-    return (
-        <>
-        <div className={styles.page}>
-            <NavBar />
-            <main className={styles.main}>
-                <EditForm handleSubmit={handleSubmit} links={userData.data.links} username={userData.username} location={userData.data.info.location} name={userData.data.info.name} bio={userData.data.info.bio} />
-            </main>
-        </div>
-        </>
-    )
+    if (status.user !== user) {
+        navigate(`/${user}`);
+    } else {
+        return (
+            <>
+            <div className={styles.page}>
+                <NavBar />
+                <main className={styles.main}>
+                    <EditForm handleSubmit={handleSubmit} links={userData.data.links} username={userData.username} location={userData.data.info.location} name={userData.data.info.name} bio={userData.data.info.bio} />
+                </main>
+            </div>
+            </>
+        )
+    }
+
 }
 
 export default EditFormPage; 

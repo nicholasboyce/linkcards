@@ -3,7 +3,7 @@ import styles from './NavBar.module.css';
 import { useAuthStatus, useAuthStatusUpdate } from '../AuthContext';
 
 const NavBar = () => {
-    const { authenticated, user } = useAuthStatus();
+    const status = useAuthStatus();
     const authController = useAuthStatusUpdate();
 
     const navigate = useNavigate();
@@ -14,13 +14,13 @@ const NavBar = () => {
         navigate('/');
     }
 
-    console.log(authenticated);
+    console.log(status.authenticated);
 
     return (
     <nav className={styles.nav}>
         <Link to='/' className={styles.logo}>LinkCards</Link>
         {
-            authenticated ?
+            status.authenticated ?
             <button className={styles.button} onClick={handleSignOut}>Sign Out</button> :
             <Link to='/login' className={styles.button}>Sign In</Link>
         }

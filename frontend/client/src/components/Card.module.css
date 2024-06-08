@@ -6,7 +6,7 @@
 
 
 .card {
-    width: min(100vw, 386px);
+    width: min(100%, 386px);
     margin-inline: auto;
     background-color: var(--clr-neutral-990);
     border-radius: 0.5rem;
@@ -16,4 +16,22 @@
     display: grid;
     row-gap: 1.5rem;
     font-size: var(--fs-400);
+    position: relative;
+}
+
+.editLink {
+    display: inline-block;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.edit {
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.edit:hover {
+    fill: var(--clr-primary-500);
+    cursor: pointer;
 }
