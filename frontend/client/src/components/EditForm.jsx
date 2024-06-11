@@ -12,7 +12,10 @@ const EditForm = ({ handleSubmit, links, username, name, location, bio }) => {
 
     useEffect(() => {
         setLinksShown(links);
-    }, [links]);
+        setNameShown(name);
+        setLocationShown(location);
+        setBioShown(bio);
+    }, [links, name, location, bio]);
 
     const handleRemoval = (link) => {
         const newLinksShown = linksShown.filter((keep) => keep.id !== link.id);
@@ -28,6 +31,8 @@ const EditForm = ({ handleSubmit, links, username, name, location, bio }) => {
         const newLinksShown = linksShown.concat(newLink);
         setLinksShown(newLinksShown);
     }
+
+    console.log(name, nameShown);
 
     return (
         <form className={styles.form} action='/' aria-labelledby='edit-form-heading' onSubmit={handleSubmit}>

@@ -44,7 +44,7 @@ const Login = () => {
             const response = await fetch(options);
             const status = response.status;
             if (status === 200) {
-                authenticator.authenticate();
+                authenticator.authenticate(data.get('username'));
                 navigate(`/${data.get('username')}`);
             } else {
                 setValidity(false);

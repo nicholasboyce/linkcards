@@ -40,8 +40,9 @@ const AuthContextProvider = ({ children }) => {
         return () => abortController.abort();
     }, []);
 
-    const authenticate = () => {
+    const authenticate = (username) => {
         setLoggedIn(true);
+        setUser(username);
     }
     
     const logout = async () => {
