@@ -63,7 +63,7 @@ const User = () => {
             });
             const userData = await response.json();
     
-            setData(userData.data);
+            userData && setData(userData.data);
             // setPicture(userData.picture);
           } catch(error) {
             console.log(error);

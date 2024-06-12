@@ -47,9 +47,18 @@ const AuthContextProvider = ({ children }) => {
     
     const logout = async () => {
         setLoggedIn(false);
-        await fetch('/api/logout', {
-            method: "POST"
+        const csrfResponse = await fetch('/api/csrf');
+        const csrf = await csrfResponse.json()
+        const options = new Request('/api/logout', {
+            method: 'POST',
+            headers: {
+                'x-csrf-token': csrf.token,
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
         });
+        const response = await fetch(options);
+        console.log(response.status);
     }
 
     const authStatusUpdateObject = {

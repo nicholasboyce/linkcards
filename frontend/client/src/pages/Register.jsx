@@ -16,15 +16,22 @@ const Register = () => {
         return JSON.stringify(json);
     }
 
-    const validateForm = (e) => {
+    const validateForm = async (e) => {
         e.preventDefault();
         const form = e.target;
         const data = new FormData(form);
         
         if (form.reportValidity()) {
-            fetch('/api/register', {
+            const csrfResponse = await fetch('/api/csrf');
+            const csrf = await csrfResponse.json();
+            fetch('/api/users', {
                 method: 'POST',
-                body: convertToJSON(data)
+                body: convertToJSON(data),
+                headers: {
+                    'x-csrf-token': csrf.token,
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
             });
         }
     }

@@ -31,7 +31,7 @@ const Login = () => {
         
         if (form.reportValidity()) {
             const csrfResponse = await fetch('/api/csrf');
-            const csrf = await csrfResponse.json()
+            const csrf = await csrfResponse.json();
             const options = new Request('/api/login', {
                 method: 'POST',
                 headers: {

@@ -116,7 +116,7 @@ describe('when there are no users initially saved', () => {
                     username: 'sarah1',
                     password: 'ab'
                 })
-                .expect(400);});
+                .expect(400)});
     });
 });
 
