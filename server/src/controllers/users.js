@@ -12,8 +12,9 @@ exports.login = async (request, response) => {
 }
 
 exports.logout = async (request, response) => {
-    request.logout();
-    response.sendStatus(200);
+    request.logout(() => {
+        response.redirect('/');
+    });
 }
 
 exports.getAllUsers = async (request, response) => {
