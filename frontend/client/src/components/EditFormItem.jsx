@@ -39,7 +39,7 @@ const EditFormItem = ({ link, index, solo, handleRemoval }) => {
                 </p>
                 <p className={styles.formItem}>
                     <label htmlFor={`${link.id}-Link`}>Link:</label>
-                    <input type="text" name={link.url} id={`${link.id}-Link`} value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
+                    <input type="text" name={link.url} id={`${link.id}-Link`} value={linkURL || ''} onChange={(e) => setLinkURL(e.target.value)} />
                 </p>
                 {!solo && <button aria-label={`Remove Link #${index + 1}: ${link.name}`} className={styles.test} onClick={removeLink}>-</button>}
             </fieldset>
