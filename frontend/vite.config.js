@@ -9,7 +9,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: resolve(__dirname, 'client/index.html')
-    }
+    },
+    outDir: resolve(__dirname, '../server/dist'),
+    emptyOutDir: true
   },
   server: {
     proxy: {
