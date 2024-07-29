@@ -115,7 +115,7 @@ const EditFormPage = () => {
             <div className={styles.page}>
                 <NavBar />
                 <main className={styles.main}>
-                    <EditForm handleSubmit={handleSubmit} links={userData.data.links} username={userData.username} location={userData.data.info.location} name={userData.data.info.name} bio={userData.data.info.bio} />
+                    <EditForm handleSubmit={handleSubmit} links={userData.data.links || []} username={userData.username || ''} location={userData.data.info.location || '' } name={userData.data.info.name || '' } bio={userData.data.info.bio || ''} />
                 </main>
             </div>
             </>
