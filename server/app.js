@@ -50,6 +50,10 @@ app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
 app.use('/api/users', userRouter);
 
+app.get('(/*)?', async (req, res, next) => {
+  res.sendFile('dist/index.html', { root: __dirname });
+});
+
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
