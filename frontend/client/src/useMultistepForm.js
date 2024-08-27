@@ -13,11 +13,17 @@ export const useMultistepForm = (steps) => {
 
     const goTo = (index) => {
         setCurrentStepIndex(index);
-    }
+    };
+
+    const isFirstStep = currentStepIndex === 0;
+    const isLastStep = currentStepIndex === steps.length - 1;
 
     return {
         currentStepIndex,
         step: steps[currentStepIndex],
+        steps,
+        isFirstStep,
+        isLastStep,
         next,
         back,
         goTo
