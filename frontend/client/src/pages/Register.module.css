@@ -16,8 +16,14 @@
     display: inline-block;
     font-weight: 600;
     font-size: var(--fs-600);
-    margin-block-end: 2rem;
     color: var(--clr-neutral-100);
+}
+
+.form-top-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 2rem;
 }
 
 .formBlock {
@@ -51,6 +57,12 @@
     border: none
 }
 
+.button-wrapper {
+    display: grid;
+    column-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .registerFormSubmit {
     margin-block-start: 1rem;
     padding: 0.75rem;
@@ -70,6 +82,9 @@
     background-color: var(--clr-neutral-100);
 }
 
+.next {
+    grid-column: 2;
+}
 
 .loginLink,
 .loginLink:visited {
