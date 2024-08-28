@@ -1,13 +1,13 @@
 FROM node:20-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ARG RAILWAY_SERVICE_NAME
+ARG RAILWAY_SERVICE_ID
 RUN corepack enable
 
 FROM base AS build
 COPY . .
 WORKDIR /frontend
-RUN --mount=type=cache,id=s/$RAILWAY_SERVICE_NAME-/pnpm/store,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=s/$RAILWAY_SERVICE_ID-/pnpm/store,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
 FROM base AS prod-deps
