@@ -112,6 +112,8 @@ const Register = () => {
                         authenticator.authenticate(transferData.username);
                         navigate(`/${transferData.username}`);
                     }
+                } else {
+                    alert('User creation failed');
                 }
             } else {
                 next();

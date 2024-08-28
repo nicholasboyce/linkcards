@@ -104,7 +104,13 @@ const EditFormPage = () => {
             credentials: 'include'
         });
         const response = await fetch(options);
-        (response.status === 200) && console.log(await response.json());
+        if (response.status === 200) {
+            alert('User update successful!');
+            const updatedUser = await response.json();
+            navigate(`/${updatedUser.username}`);
+        } else {
+            alert('User update unsuccessful');
+        }
     };
 
     if (status.user !== user) {
