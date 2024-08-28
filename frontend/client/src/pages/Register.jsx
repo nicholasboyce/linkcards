@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import RegisterFormItem from '../components/RegisterFormItem';
 import { useMultistepForm } from '../useMultistepForm';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStatusUpdate } from '../AuthContext';
 
 const INITIAL_DATA = {
     username: '',
@@ -18,6 +20,8 @@ const INITIAL_DATA = {
 
 const Register = () => {
     const [userData, setData] = useState(INITIAL_DATA);
+    const navigate = useNavigate();
+    const authenticator = useAuthStatusUpdate();
     const updateFields = (fields) => {
         setData(prev => {
             return {...prev, ...fields};
@@ -80,7 +84,7 @@ const Register = () => {
                 };
                 const csrfResponse = await fetch('/api/csrf');
                 const csrf = await csrfResponse.json();
-                fetch('/api/users', {
+                const postResponse = await fetch('/api/users', {
                     method: 'POST',
                     body: JSON.stringify(transferData),
                     headers: {
@@ -89,6 +93,26 @@ const Register = () => {
                     },
                     credentials: 'include'
                 });
+                if (postResponse.status === 201) {
+                    alert('User creation successful!');
+                    const loginCsrfResponse = await fetch('/api/csrf');
+                    const loginCsrf = await loginCsrfResponse.json();
+                    const options = new Request('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'x-csrf-token': loginCsrf.token,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({username: transferData.username, password: transferData.password}),
+                        credentials: 'include'
+                    });
+                    const response = await fetch(options);
+                    const status = response.status;
+                    if (status === 200) {
+                        authenticator.authenticate(transferData.username);
+                        navigate(`/${transferData.username}`);
+                    }
+                }
             } else {
                 next();
             }
