@@ -32,7 +32,7 @@ const EditForm = ({ handleSubmit, links, username, name, location, bio }) => {
         setLinksShown(newLinksShown);
     }
 
-    console.log(name, nameShown);
+    // console.log(name, nameShown);
 
     return (
         <form className={styles.form} action='/' aria-labelledby='edit-form-heading' onSubmit={handleSubmit}>
