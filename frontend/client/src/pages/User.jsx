@@ -74,7 +74,7 @@ const User = () => {
         return () => abortController.abort();
     }, [user]);
 
-    console.log(user, status.authenticated);
+    // console.log(user, status.authenticated);
 
     return (
         <div role='presentation' className={styles.user}>

@@ -14,7 +14,7 @@ const NavBar = () => {
         navigate('/');
     }
 
-    console.log(status.authenticated);
+    // console.log(status.authenticated);
 
     return (
     <nav className={styles.nav}>

@@ -50,23 +50,10 @@ const Register = () => {
             <RegisterFormItem id='link-2' text='Link #2' type='text' length={3} name='link-2' updateFields={updateFields} initial={userData['link-2']}/>
         </>
     ]);
-    const convertToJSON = (data) => {
-        const json = {};
-
-        data.forEach((value, key) => {
-            if(!Reflect.has(json, key)) {
-                json[key] = value;
-                return;
-            }
-        });
-
-        return JSON.stringify(json);
-    }
 
     const validateForm = async (e) => {
         e.preventDefault();
         const form = e.target;
-        // const data = new FormData(form);
         
         if (form.reportValidity()) {
             if (isLastStep) {
@@ -91,7 +78,6 @@ const Register = () => {
                         ]
                     }
                 };
-                // console.log(transferData);
                 const csrfResponse = await fetch('/api/csrf');
                 const csrf = await csrfResponse.json();
                 fetch('/api/users', {
