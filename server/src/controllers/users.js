@@ -1,4 +1,3 @@
-const { authenticate } = require('passport');
 const userService = require('../services/userService');
 
 exports.login = async (request, response) => {
