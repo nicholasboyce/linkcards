@@ -18,7 +18,13 @@ const Register = () => {
             <RegisterFormItem id='password' text='Password' type='password' length={5} name='password' />
         </>,
         <>
-            <p>Second page</p>
+            <RegisterFormItem id='name' text='Name' type='text' length={3} name='name' />
+            <RegisterFormItem id='location' text='Location' type='text' length={3} name='location' />
+            <RegisterFormItem id='bio' text='Bio' type='text' length={3} name='bio' />
+        </>,
+        <>
+            <RegisterFormItem id='link-1' text='Link #1' type='text' length={3} name='link-1' />
+            <RegisterFormItem id='link-2' text='Link #2' type='text' length={3} name='link-2' />
         </>
     ]);
     const convertToJSON = (data) => {
@@ -40,17 +46,21 @@ const Register = () => {
         const data = new FormData(form);
         
         if (form.reportValidity()) {
-            const csrfResponse = await fetch('/api/csrf');
-            const csrf = await csrfResponse.json();
-            fetch('/api/users', {
-                method: 'POST',
-                body: convertToJSON(data),
-                headers: {
-                    'x-csrf-token': csrf.token,
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
-            });
+            if (isLastStep) {
+                const csrfResponse = await fetch('/api/csrf');
+                const csrf = await csrfResponse.json();
+                fetch('/api/users', {
+                    method: 'POST',
+                    body: convertToJSON(data),
+                    headers: {
+                        'x-csrf-token': csrf.token,
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+            } else {
+                next();
+            }
         }
     }
 
@@ -63,12 +73,12 @@ const Register = () => {
                     <div className='steps-number'>{currentStepIndex + 1} / {steps.length}</div>
                 </div>
                 <main className={styles.main}>
-                    <form action="/api/users" method="post" noValidate='novalidate' className={styles.registerForm} onSubmit={validateForm}>
+                    <form action="/api/users" method="post" className={styles.registerForm} onSubmit={validateForm}>
                         <h1 className={styles.formHeading}>Create your LinkCards account</h1>
                         {step}
                         <div className={styles["button-wrapper"]}>
                             {!isFirstStep && <button type="button" className={styles.registerFormSubmit} onClick={back}>Back</button>}
-                            {!isLastStep && <button type="button" className={`${styles.registerFormSubmit} ${styles.next}`} onClick={next}>Next</button>}
+                            {!isLastStep && <button type="submit" className={`${styles.registerFormSubmit} ${styles.next}`}>Next</button>}
                             {isLastStep && <button type="submit" className={styles.registerFormSubmit}>Create account</button>}
                         </div>
                     </form>
