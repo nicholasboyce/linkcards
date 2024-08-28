@@ -2,6 +2,7 @@ const config = require('./utils/config')
 const express = require('express')
 require('express-async-errors')
 const app = express()
+const redis = require('redis')
 const session = require('express-session')
 const loginRouter = require('./src/routes/login')
 const userRouter = require('./src/routes/users')
@@ -15,6 +16,11 @@ const { csrfSync } = require("csrf-sync")
 const {
   csrfSynchronisedProtection
 } = csrfSync();
+const RedisStore = require('connect-redis').default
+const redisClient = redis.createClient({
+  url: `${config.REDIS_URL}`
+});
+redisClient.connect().catch(console.error);
 
 mongoose.set('strictQuery', false);
 
@@ -28,13 +34,16 @@ mongoose.connect(config.MONGODB_URI)
     logger.error('error connecting to MongoDB:', error.message)
   });
 app.use(express.json());
-app.use(session({
+app.use(session(
+  {
+    store: new RedisStore({ client: redisClient }),
     secret: config.SECRET,
     saveUninitialized: false,
     resave: false,
     cookie: {
       maxAge: 1000 * 60 * 60,
-      // sameSite: 'lax' commenting out because while testing it may affect fetch requests
+      // sameSite: 'lax',
+      // httpOnly: true
     }
 }));
 
