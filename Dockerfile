@@ -20,5 +20,5 @@ COPY ./server ./server
 COPY --from=prod-deps /server/node_modules /server/node_modules
 COPY --from=build /server/dist /server/dist
 WORKDIR /server
-EXPOSE 8000
+EXPOSE 3001
 CMD [ "pnpm", "start" ]
