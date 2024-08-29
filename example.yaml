@@ -1,0 +1,23 @@
+version: '3'
+services:
+  linkcards:
+    image: nicholasboyce/linkcards:latest
+    env_file: ".env"
+    ports: 
+      - 3001:3001
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_started
+  redis:
+    image: redis
+  db:
+    image: mongodb
+    healthcheck:
+      test: ["CMD-SHELL", "mongo_isready -U ${MONGO_USER} -d ${MONGO_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
