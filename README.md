@@ -6,6 +6,8 @@ LinkCards is a service that allows users to display their most important social 
 
 Users can connect their accounts to their LinkedIn profile in order to create their profile pictures.
 
+Note: Currently deploys are triggered by pushing to the railway branch, NOT the 'main' branch.
+
 [View production app](https://www.linkcards.bio/)
 
 ## Features
