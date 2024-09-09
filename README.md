@@ -8,6 +8,10 @@ Users can connect their accounts to their LinkedIn profile in order to create th
 
 [View production app](https://www.linkcards.bio/)
 
+Test credentials:
+Username: sarah2
+Password: abc123
+
 ## Features
 
 - Share links to all your socials in one place (e.g. https://linkcards.bio/jessica1)
