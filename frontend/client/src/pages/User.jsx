@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import styles from './User.module.css';
 import { wrapPromise } from '../utils/wrapPromise';
 import { Suspense } from 'react';
+import ErrorBoundary from '../components/ErrorBoundary';
+import Failure from '../components/Failure';
 
 
 const User = () => {
@@ -28,9 +30,11 @@ const User = () => {
     return (
         <div role='presentation' className={styles.user}>
             <NavBar />
-            <Suspense fallback={<LoadingCard />}>
-                <Card picture={picture} resource={resourcePromise}/>
-            </Suspense>
+            <ErrorBoundary fallback={<Failure />}>
+                <Suspense fallback={<LoadingCard />}>
+                    <Card picture={picture} resource={resourcePromise}/>
+                </Suspense>
+            </ErrorBoundary>
         </div>
     )
 }
