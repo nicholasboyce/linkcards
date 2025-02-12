@@ -4,7 +4,6 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN npm install -g corepack@latest
 RUN corepack enable
 ENV COREPACK_DEFAULT_TO_LATEST=0
-RUN pnpm install --frozen-lockfile
 
 FROM base AS build
 COPY . .
