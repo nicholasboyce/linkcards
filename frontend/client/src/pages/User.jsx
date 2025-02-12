@@ -1,5 +1,6 @@
 import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
+import { LoadingCard } from '../components/LoadingCard';
 import NavBar from '../components/NavBar';
 import { useParams } from 'react-router-dom';
 import styles from './User.module.css';
@@ -23,11 +24,11 @@ const User = () => {
     }
 
     const resourcePromise = wrapPromise(fetchUserData());
-    
+
     return (
         <div role='presentation' className={styles.user}>
             <NavBar />
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<LoadingCard />}>
                 <Card picture={picture} resource={resourcePromise}/>
             </Suspense>
         </div>
