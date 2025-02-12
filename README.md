@@ -10,6 +10,10 @@ Note: Currently deploys are triggered by pushing to the railway branch, NOT the 
 
 [View production app](https://www.linkcards.bio/)
 
+Test credentials:
+Username: sarah2
+Password: abc123
+
 ## Features
 
 - Share links to all your socials in one place (e.g. https://linkcards.bio/jessica1)
@@ -61,7 +65,30 @@ pnpm run start
 
 You should see in the console logs of either case that the server is successfully listening on the PORT you specified, and that it has successfully connected to MongoDB. 
 
-Note: The Dockerfile is used for production deployment. This file is not currently meant to be used for local development. A file for other users is forthcoming.
+If you're using Windows or a non-Unix OS that is compatible with Docker, then you can use Docker for installing and running this program. 
+You can either pull the image from Docker Hub:
+```console
+docker pull nicholasboyce/linkcards:latest
+```
+
+or you can build the image yourself after cloning the repository.
+```console
+docker build -t linkcards:<tag-here> . 
+```
+
+However, please note that all Docker run programs must be on the same network in order to properly communicate with each other. You can either use Docker network:
+```console
+docker network create -d bridge my-net
+docker run --network=my-net -itd --name=container3 busybox
+```
+
+or you can just use Docker compose with the example.yaml and example.env files in the root folder. The example.env file should be edited to be .env once you've added your env variables for the LinkCards image.
+
+```console
+docker-compose -f example.yaml up
+```
+
+As in the other example, you should see in the console logs of either case that the server is successfully listening on the PORT you specified (recommended to set to 3001), and that it has successfully connected to MongoDB. 
 
 ## Running the Tests
 You can currently run the tests for the API service with

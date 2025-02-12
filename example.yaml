@@ -1,3 +1,4 @@
+# Use root/example as user/password credentials
 version: '3'
 services:
   linkcards:
@@ -15,8 +16,11 @@ services:
     image: redis
   db:
     image: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     healthcheck:
-      test: ["CMD-SHELL", "mongo_isready -U ${MONGO_USER} -d ${MONGO_DB}"]
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       retries: 5
       start_period: 30s

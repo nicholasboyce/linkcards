@@ -4,7 +4,6 @@
     grid-column: content;
 }
 
-
 .card {
     width: min(100%, 386px);
     margin-inline: auto;

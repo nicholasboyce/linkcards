@@ -95,6 +95,7 @@
     grid-row: 2 / 4;
     grid-column: 2;
     box-shadow: var(--clr-neutral-990) 3px 3px 10px;
+    cursor: pointer;
 }
 
 @media (max-width: 1010px) {
