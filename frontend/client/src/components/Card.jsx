@@ -6,9 +6,12 @@ import { Link, useParams } from 'react-router-dom';
 import { useAuthStatus } from '../AuthContext';
 
 const Card = (props) => {
-    const { data, picture } = props;
+    const { picture, resource } = props;
     const { user } = useParams();
     const status = useAuthStatus();
+    const { data } = resource.read();
+    
+    console.log(data);
 
     return (
         <main className={styles.main}>
@@ -30,8 +33,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-    data: PropTypes.object,
-    picture: PropTypes.object
+    picture: PropTypes.object,
+    resource: PropTypes.object
 }
 
 export default Card;
