@@ -42,7 +42,7 @@ exports.getAllUsers = async () => {
 
 exports.getUser = async (username) => {
     const user = await User.findOne({username});
-    if (!user.picture) {
+    if (user && !user.picture) {
         user.picture = {
             url: `https://avatars.githubusercontent.com/u/${randomNumber()}`,
             alt: `${username}'s profile picture`
