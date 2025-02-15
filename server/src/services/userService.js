@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const { randomNumber } = require('../../utils/randomNumber');
 
 exports.login = async (user) => {
     return { username: user.username };
@@ -18,10 +19,15 @@ exports.createUser = async ({ username, password, data }) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const inputData = data ? data : {};
+    const pictureUrl = `https://avatars.githubusercontent.com/u/${randomNumber()}`;
 
     const user = new User({
         username,
         passwordHash,
+        picture: {
+            url: pictureUrl,
+            alt: `${username}'s profile picture`
+        },
         data: inputData
     });
 
@@ -35,7 +41,15 @@ exports.getAllUsers = async () => {
 }
 
 exports.getUser = async (username) => {
-    return await User.findOne({username});
+    const user = await User.findOne({username});
+    if (!user.picture) {
+        user.picture = {
+            url: `https://avatars.githubusercontent.com/u/${randomNumber()}`,
+            alt: `${username}'s profile picture`
+        };
+        await user.save();
+    }
+    return user;
 }
 
 exports.updateUser = async (agent, target, updatedInfo) => {

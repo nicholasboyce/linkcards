@@ -1,4 +1,3 @@
-import imgUrl from '../assets/avatar-jessica.jpeg';
 import Card from '../components/Card';
 import { LoadingCard } from '../components/LoadingCard';
 import NavBar from '../components/NavBar';
@@ -11,13 +10,7 @@ import Failure from '../components/Failure';
 
 
 const User = () => {
-    // const [picture, setPicture] = useState({});
     const { user } = useParams();
-
-    const picture = {
-        url: imgUrl,
-        alt: 'A profile picture'
-    }
 
     const fetchUserData = async () => {
         const response = await fetch(`/api/users/${user}`);
@@ -32,7 +25,7 @@ const User = () => {
             <NavBar />
             <ErrorBoundary fallback={<Failure />}>
                 <Suspense fallback={<LoadingCard />}>
-                    <Card picture={picture} resource={resourcePromise}/>
+                    <Card resource={resourcePromise}/>
                 </Suspense>
             </ErrorBoundary>
         </div>

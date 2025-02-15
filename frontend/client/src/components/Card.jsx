@@ -7,7 +7,7 @@ import { useAuthStatus } from '../AuthContext';
 import { useEffect } from 'react';
 
 const Card = (props) => {
-    const { picture, resource } = props;
+    const { resource } = props;
     const { user } = useParams();
     const status = useAuthStatus();
     const navigate = useNavigate();
@@ -21,6 +21,7 @@ const Card = (props) => {
 
     if (result !== null) {
         const data = result.data;
+        const picture = result.picture;
         
         console.log(data);
     
@@ -45,7 +46,6 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-    picture: PropTypes.object,
     resource: PropTypes.object
 }
 
