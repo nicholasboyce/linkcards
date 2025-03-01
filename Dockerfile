@@ -24,4 +24,5 @@ COPY ./server ./server
 COPY --from=prod-deps /server/node_modules /server/node_modules
 COPY --from=build /server/dist /server/dist
 WORKDIR /server
+RUN pnpm install
 CMD [ "pnpm", "start" ]
