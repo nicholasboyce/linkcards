@@ -23,7 +23,7 @@ const Card = (props) => {
         const data = result.data;
         const picture = result.picture;
         
-        console.log(data);
+        // console.log(data);
     
         return (
             <main className={styles.main}>
