@@ -8,10 +8,17 @@
 }
 
 .logo {
-    /* display: inline-block; */
+    display: flex;
+    column-gap: var(--fs-300);
+    align-items: center;
     font-weight: 600;
     font-size: var(--fs-600);
     color: var(--clr-neutral-100);
+}
+
+.icon {
+    display: inline-block;
+    width: var(--fs-700);
 }
 
 .button {

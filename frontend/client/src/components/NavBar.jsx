@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './NavBar.module.css';
 import { useAuthStatus, useAuthStatusUpdate } from '../AuthContext';
+import logo from '../../../assets/web-icon.svg';
 
 const NavBar = () => {
     const status = useAuthStatus();
@@ -18,7 +19,7 @@ const NavBar = () => {
 
     return (
     <nav className={styles.nav}>
-        <Link to='/' className={styles.logo}>LinkCards</Link>
+        <Link to='/' className={styles.logo}><img src={logo} className={styles.icon}/>LinkCards</Link>
         {
             status.authenticated ?
             <button className={styles.button} onClick={handleSignOut}>Sign Out</button> :

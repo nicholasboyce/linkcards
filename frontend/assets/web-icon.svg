@@ -1,0 +1,43 @@
+<svg viewBox="-1 -1 52 52" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded corner rectangle -->
+  <rect
+    width="50"
+    height="50"
+    rx="5"
+    fill="hsl(75, 94%, 57%)"
+    stroke="black"
+  />
+  <g class="rotate" transform="translate(6, -23) rotate(45 7.5 33)">
+    <g class="suit">
+      <rect
+        x="3"
+        y="28"
+        width="20"
+        height="14"
+        fill="hsl(75, 94%, 57%)"
+        stroke="black"
+        rx="3"
+        stroke-width="2"
+      />
+      <rect
+        x="30"
+        y="28"
+        width="20"
+        height="14"
+        fill="hsl(75, 94%, 57%)"
+        stroke="black"
+        rx="3"
+        stroke-width="2"
+      />
+      <rect
+        x="13"
+        y="33"
+        width="23"
+        height="4"
+        fill="black"
+        rx="2"
+        stroke="hsl(75, 94%, 57%)"
+      />
+    </g>
+  </g>
+</svg>
