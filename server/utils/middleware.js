@@ -1,6 +1,6 @@
 const logger = require('./logger')
 
-const requestLogger = (request, response, next) => {
+const requestLogger = (request, _, next) => {
   logger.info('Method:', request.method)
   logger.info('Path:  ', request.path)
   logger.info('Body:  ', request.body)
@@ -9,11 +9,11 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-const unknownEndpoint = (request, response) => {
+const unknownEndpoint = (_, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, _, response, next) => {
   logger.error(error.message)
 
   if (error.name === 'CastError') {
@@ -28,13 +28,24 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({ error: error.message })
   } else if (error.name === 'ForbiddenError') {
     return response.status(403).json({ error: error.message })
+  } else if (error.name === 'ZodError') {
+    // console.log(error.message)
+    return response.status(400).send({ error: 'bad data' })
   }
 
   next(error)
 }
 
+function validateData(schema) {
+  return (request, _, next) => {
+      request.body = schema.parse(request.body)
+      next()
+  };
+};
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
-  errorHandler
+  errorHandler,
+  validateData
 }

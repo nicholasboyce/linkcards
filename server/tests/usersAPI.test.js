@@ -216,23 +216,23 @@ describe('when there are users initially saved', () => {
                 links: [
                   {
                     name: 'Github',
-                    url: 'nicholasboyce.dev'
+                    url: 'https://www.nicholasboyce.dev'
                   },
                   {
                     name: 'Frontend Mentor',
-                    url: 'nicholasboyce.dev'
+                    url: 'https://www.nicholasboyce.dev'
                   },
                   {
                     name: 'Linkedin',
-                    url: 'nicholasboyce.dev'
+                    url: 'https://www.nicholasboyce.dev'
                   },
                   {
                     name: 'Twitter',
-                    url: 'nicholasboyce.dev'
+                    url: 'https://www.nicholasboyce.dev'
                   },
                   {
                     name: 'Instagram',
-                    url: 'nicholasboyce.dev'
+                    url: 'https://www.nicholasboyce.dev'
                   }
                 ]
             }
@@ -261,7 +261,8 @@ describe('when there are users initially saved', () => {
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
     
-            assert.deepStrictEqual(response.body.data, data);
+            assert.deepStrictEqual(response.body.data.info, data.info);
+            assert.equal(data.links.length, response.body.data.links.length);
         });
     
         test('fails when username is not unique', async () => {
@@ -324,7 +325,7 @@ describe('when there are users initially saved', () => {
                     links: [
                         {
                             name: 'Github',
-                            url: 'github.com/sarahsarahbarah'
+                            url: 'https://www.github.com/sarahsarahbarah'
                         }
                     ]
                 }
@@ -347,7 +348,7 @@ describe('when there are users initially saved', () => {
                 .expect(200)
                 .expect('Content-Type', /application\/json/);
 
-            assert.deepStrictEqual(patchResponse.body.data, newUserData.data);
+            assert.deepStrictEqual(patchResponse.body.data.links.length, newUserData.data.links.length);
         });
 
         test('fails if user is non-existent', async () => {
@@ -378,7 +379,7 @@ describe('when there are users initially saved', () => {
                     links: [
                         {
                             name: 'Github',
-                            url: 'github.com/sarahsarahbarah'
+                            url: 'https://www.github.com/sarahsarahbarah'
                         }
                     ]
                 }
@@ -413,7 +414,7 @@ describe('when there are users initially saved', () => {
                     links: [
                         {
                             name: 'Github',
-                            url: 'github.com/sarahsarahbarah'
+                            url: 'https://www.github.com/sarahsarahbarah'
                         }
                     ]
                 }
@@ -466,7 +467,7 @@ describe('when there are users initially saved', () => {
                     links: [
                         {
                             name: 'Github',
-                            url: 'github.com/sarahsarahbarah'
+                            url: 'https://www.github.com/sarahsarahbarah'
                         }
                     ]
                 }

@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "test": "NODE_ENV=test node --trace-warnings --test"
+    "test": "NODE_ENV=test node --trace-warnings --test tests/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -31,9 +31,12 @@
     "mongoose": "^8.2.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "zod": "^3.24.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["bcrypt"]
+    "onlyBuiltDependencies": [
+      "bcrypt"
+    ]
   }
 }

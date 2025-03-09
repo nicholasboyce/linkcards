@@ -16,7 +16,7 @@ exports.logout = async (request, response) => {
     });
 }
 
-exports.getAllUsers = async (request, response) => {
+exports.getAllUsers = async (_, response) => {
     const users = await userService.getAllUsers();
     response.json(users);
 }
