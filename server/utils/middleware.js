@@ -5,6 +5,7 @@ const requestLogger = (request, _, next) => {
   logger.info('Path:  ', request.path)
   logger.info('Body:  ', request.body)
   logger.info('Session ID: ', request.session.id)
+  logger.info('IP: ', request.ip)
   logger.info('---')
   next()
 }
