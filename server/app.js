@@ -4,6 +4,7 @@ require('express-async-errors')
 const app = express()
 const redis = require('redis')
 const session = require('express-session')
+const { rateLimit } = require('express-rate-limit')
 const loginRouter = require('./src/routes/login')
 const userRouter = require('./src/routes/users')
 const csrfRouter = require('./src/routes/csrf')
@@ -16,6 +17,12 @@ const { csrfSync } = require("csrf-sync")
 const {
   csrfSynchronisedProtection
 } = csrfSync();
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 const RedisStore = require('connect-redis').default
 const redisClient = redis.createClient({
   url: `${config.REDIS_URL}`
@@ -36,6 +43,7 @@ mongoose.connect(config.MONGODB_URI)
 app.use(express.json());
 app.use(session(
   {
+    name: 'sessionId',
     store: new RedisStore({ client: redisClient }),
     secret: config.SECRET,
     saveUninitialized: false,
@@ -53,6 +61,7 @@ app.use(passport.session());
 app.use(express.static('dist'));
 app.use(middleware.requestLogger);
 
+// app.use(limiter);
 app.use('/api/csrf', csrfRouter);
 app.use(csrfSynchronisedProtection);
 app.use('/api/login', loginRouter);

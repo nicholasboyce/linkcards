@@ -1,11 +1,13 @@
 const logger = require('./logger')
 
 const requestLogger = (request, _, next) => {
+  const { headers } = request;
   logger.info('Method:', request.method)
   logger.info('Path:  ', request.path)
   logger.info('Body:  ', request.body)
   logger.info('Session ID: ', request.session.id)
   logger.info('IP: ', request.ip)
+  logger.info('Real IP: ', headers['X-Real-IP'])
   logger.info('---')
   next()
 }
