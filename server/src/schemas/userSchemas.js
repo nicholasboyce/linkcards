@@ -18,7 +18,9 @@ const userSchema = z.object({
                     if (!URL.canParse(newString)) {
                         return new URL(`https://${newString}`).toString()
                     }
-                    return newString;
+                    const input = new URL(newString)
+                    input.protocol = 'https:'
+                    return input.toString();
                 })
                 .pipe(z.string().url().nonempty())
         })).min(1)
