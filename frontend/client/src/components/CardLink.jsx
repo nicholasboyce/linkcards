@@ -4,7 +4,7 @@ import styles from './CardLink.module.css';
 const CardLink = ({ link }) => {
     return (
         <li className={styles.linkItem}>
-            <a className={styles.link} href={`https://${link.url}`} target='_blank'>{link.name}</a>
+            <a className={styles.link} href={link.url} target='_blank'>{link.name}</a>
         </li>
     )
 }
