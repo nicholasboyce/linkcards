@@ -13,7 +13,7 @@ const userSchema = z.object({
         }),
         links: z.array(z.object({
             name: z.string().trim().nonempty(),
-            url: z.string().transform(async (val, ctx) => {
+            url: z.string().transform(async (val) => {
                     let returnString;
                     let newString = val.replaceAll(' ', '')
                     if (!URL.canParse(newString)) {
@@ -26,11 +26,7 @@ const userSchema = z.object({
                     const response = await fetch(returnString);
                     if (response.status == 200) {
                         return returnString;
-                    } ctx.addIssue({
-                        code: z.ZodIssueCode.custom,
-                        message: "URL is unreachable"
-                    });
-                    return z.NEVER;
+                    } return '';
                 })
                 .pipe(z.string().url().nonempty())
         })).min(1)
