@@ -41,7 +41,7 @@ const errorHandler = (error, _, response, next) => {
 
 function validateData(schema) {
   return (request, _, next) => {
-      request.body = schema.parse(request.body)
+      request.body = schema.parseAsync(request.body)
       next()
   };
 };

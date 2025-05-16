@@ -13,14 +13,24 @@ const userSchema = z.object({
         }),
         links: z.array(z.object({
             name: z.string().trim().nonempty(),
-            url: z.string().transform((val) => {
+            url: z.string().transform(async (val, ctx) => {
+                    let returnString;
                     let newString = val.replaceAll(' ', '')
                     if (!URL.canParse(newString)) {
-                        return new URL(`https://${newString}`).toString()
+                        returnString = new URL(`https://${newString}`).toString();
+                    } else {
+                        const input = new URL(newString)
+                        input.protocol = 'https:'
+                        returnString = input.toString();
                     }
-                    const input = new URL(newString)
-                    input.protocol = 'https:'
-                    return input.toString();
+                    const response = await fetch(returnString);
+                    if (response.status == 200) {
+                        return returnString;
+                    } ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "URL is unreachable"
+                    });
+                    return z.NEVER;
                 })
                 .pipe(z.string().url().nonempty())
         })).min(1)
