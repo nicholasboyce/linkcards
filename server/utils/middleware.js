@@ -40,8 +40,8 @@ const errorHandler = (error, _, response, next) => {
 }
 
 function validateData(schema) {
-  return (request, _, next) => {
-      request.body = schema.parseAsync(request.body)
+  return async (request, _, next) => {
+      request.body = await schema.parseAsync(request.body)
       next()
   };
 };
